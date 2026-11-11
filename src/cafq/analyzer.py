@@ -127,10 +127,21 @@ def _find_bypass(prog: Program, W: list[Poly], gi: list[Poly], rng: random.Rando
 def analyze_fault(prog: Program, ref: Reference, fault: Fault | None,
                   rng: random.Random) -> dict:
     F = get_field(prog.m, prog.modulus)
-    R, z = prog.challenge, Poly(F)
+    z = Poly(F)
     st = symbolic_run(prog, fault)
     outs = [st.get(o, z).reduce() for o in prog.outputs]
     g = st.get(prog.disc, z).reduce()
+    return classify_observation(prog, ref, fault, outs, g, rng)
+
+
+def classify_observation(prog: Program, ref: Reference, fault: Fault | None,
+                         outs: list[Poly], g: Poly, rng: random.Random) -> dict:
+    """Classification, witness search and quotient data for a fault whose
+    reduced faulted outputs ``outs`` and discrepancy ``g`` are already known.
+    Split out of analyze_fault (behaviour unchanged) so that other front ends
+    can supply (outs, g) without a full symbolic re-execution."""
+    F = get_field(prog.m, prog.modulus)
+    R = prog.challenge
     E = [a + b for a, b in zip(outs, ref.outs)]
     W = E + ref.incons
     region = prog.instrs[fault.site].region if fault else "none"

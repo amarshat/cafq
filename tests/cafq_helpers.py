@@ -74,3 +74,32 @@ def ground_truth(prog: Program, fault, states=None):
                     good.get(prog.disc, 0) != bad.get(prog.disc, 0):
                 same = False
         yield dict(zip(prog.inputs, xs)), all(wrongs), any(wrongs), und, same
+
+
+def square_check(m=2):
+    """Checker squares the output. In characteristic 2 the first derivative
+    of y^2 is 0, yet a fault delta on y changes the discrepancy by delta^2.
+    Minimal counterexample to 'first-order adjoints describe every fault'."""
+    ins = [Instr("add", "y", "x0", "x1", "data"),
+           Instr("mul", "chk", "y", "y", "check"),
+           Instr("add", "t", "x0", "x1", "check"),
+           Instr("mul", "t2", "t", "t", "check"),
+           Instr("add", "chk", "chk", "t2", "check"),
+           Instr("mul", "disc", "chk", "R", "check")]
+    return Program("square_check", m, MODULI[m], ["x0", "x1"], "R", ins, ["y"], "disc")
+
+
+def nonlinear_trap(m=2):
+    """y = x0 feeds BOTH operands of a checker multiplication:
+        disc = y*(y + x1) + x0*(x0 + x1).
+    True effect of a fault delta on y: delta*(delta + x1), which vanishes on
+    the states x1 == delta. The first-order adjoint is x1, so a first-order
+    template would wrongly 'certify' the bit flips as covered by a unit-free
+    polynomial delta*x1 that has no relation to the true root structure."""
+    ins = [Instr("mov", "y", "x0", None, "data"),
+           Instr("add", "z", "y", "x1", "check"),
+           Instr("mul", "p", "y", "z", "check"),
+           Instr("add", "w", "x0", "x1", "check"),
+           Instr("mul", "q", "x0", "w", "check"),
+           Instr("add", "disc", "p", "q", "check")]
+    return Program("nonlinear_trap", m, MODULI[m], ["x0", "x1"], "R", ins, ["y"], "disc")
