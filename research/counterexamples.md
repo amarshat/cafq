@@ -94,7 +94,12 @@ inconsistent and the faulted discrepancy is 0 for all 256 challenges. Reason:
 the adversary controls the input difference, so an additive fault `δR^k` is
 cancelled by choosing the difference `δ e_k`, and a dropped or merged term
 leaves a direction unverified. With exponents from 1 and `N = 6`, 173 of 190
-are bypass; the 17 covered ones are bit flips after the final multiplication.
+are bypass. The 17 covered ones are the 16 bit flips on the final
+multiplication or on the marshalling move, and the *skip* of the final
+multiplication. That last one is instructive: skipping the extra `·R` turns
+the shifted circuit back into the exponent-0 circuit. CAFQ correctly calls it
+covered (the root bound still holds), yet it re-introduces CE-1/CE-2. A
+detection certificate is not a statement about the KDF input.
 *Evidence:* `test_ar_discrepancy_every_single_fault_has_a_bypass_state`,
 `data/phase2_benchmarks.md`, `data/certificates/ar_discrepancy_n4_shift0.json`.
 
