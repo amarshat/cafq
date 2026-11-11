@@ -1,0 +1,281 @@
+{
+ "environment": {
+  "python": "3.13.18",
+  "machine": "x86_64",
+  "system": "Linux-6.18.44-fc-v338-x86_64-with-glibc2.39"
+ },
+ "rows": [
+  {
+   "program": "ar_discrepancy n=4",
+   "name": "ar_discrepancy_n4_shift0",
+   "sha256": "6b410f24d512ee8589dd1601c898f681b68b57369edcfca88324b3116a1f9d5c",
+   "field": "GF(256)",
+   "instructions": 12,
+   "sites": 120,
+   "benign": 0,
+   "covered": 0,
+   "covered_wrong_possible": 0,
+   "bypass": 120,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 42,
+    "L2": 42,
+    "L3": 42,
+    "L4": 42
+   },
+   "classes_covered_wrong": {
+    "L1": 0,
+    "L2": 0,
+    "L3": 0,
+    "L4": 0
+   },
+   "sum_naive_degree": 0,
+   "sum_certified_bound": 0,
+   "exact_certificates": 0,
+   "exact_classes": 0,
+   "root_enum_seconds_per_fault": 3.0499995773425326e-07,
+   "root_enum_seconds_per_class": 1.0290000318491366e-06,
+   "analyzer_seconds": 0.13030139200009216,
+   "checker_seconds": 0.24092509000001883,
+   "certificate_bytes": 192476
+  },
+  {
+   "program": "ar_discrepancy n=6",
+   "name": "ar_discrepancy_n6_shift0",
+   "sha256": "87b1c9a545afa1d0fc98338513ca41855dd297da7de8a3fc0228f9d4e19d07ac",
+   "field": "GF(256)",
+   "instructions": 18,
+   "sites": 180,
+   "benign": 0,
+   "covered": 0,
+   "covered_wrong_possible": 0,
+   "bypass": 180,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 64,
+    "L2": 64,
+    "L3": 64,
+    "L4": 64
+   },
+   "classes_covered_wrong": {
+    "L1": 0,
+    "L2": 0,
+    "L3": 0,
+    "L4": 0
+   },
+   "sum_naive_degree": 0,
+   "sum_certified_bound": 0,
+   "exact_certificates": 0,
+   "exact_classes": 0,
+   "root_enum_seconds_per_fault": 3.609998202591669e-07,
+   "root_enum_seconds_per_class": 9.51999936660286e-07,
+   "analyzer_seconds": 0.06460598500007109,
+   "checker_seconds": 0.4823541069999919,
+   "certificate_bytes": 348460
+  },
+  {
+   "program": "ar_discrepancy n=6 shift=1",
+   "name": "ar_discrepancy_n6_shift1",
+   "sha256": "dc3b028df1d4920aeaa63da5628f2d7b81127c4dfab12011b73b8281ccb1bec2",
+   "field": "GF(256)",
+   "instructions": 19,
+   "sites": 190,
+   "benign": 0,
+   "covered": 17,
+   "covered_wrong_possible": 17,
+   "bypass": 173,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 73,
+    "L2": 73,
+    "L3": 73,
+    "L4": 73
+   },
+   "classes_covered_wrong": {
+    "L1": 9,
+    "L2": 9,
+    "L3": 9,
+    "L4": 9
+   },
+   "sum_naive_degree": 101,
+   "sum_certified_bound": 101,
+   "exact_certificates": 0,
+   "exact_classes": 0,
+   "root_enum_seconds_per_fault": 2.750000476225978e-07,
+   "root_enum_seconds_per_class": 9.4600000011269e-07,
+   "analyzer_seconds": 0.07498660700002802,
+   "checker_seconds": 0.535868937000032,
+   "certificate_bytes": 389711
+  },
+  {
+   "program": "polymul_schoolbook n=2",
+   "name": "polymul_schoolbook_n2",
+   "sha256": "272c73000e283912e19b823bb52cb608a9446b8339fc785e9a23a98f483a0485",
+   "field": "GF(256)",
+   "instructions": 21,
+   "sites": 210,
+   "benign": 2,
+   "covered": 208,
+   "covered_wrong_possible": 80,
+   "bypass": 0,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 101,
+    "L2": 12,
+    "L3": 5,
+    "L4": 4
+   },
+   "classes_covered_wrong": {
+    "L1": 31,
+    "L2": 10,
+    "L3": 3,
+    "L4": 2
+   },
+   "sum_naive_degree": 80,
+   "sum_certified_bound": 60,
+   "exact_certificates": 80,
+   "exact_classes": 2,
+   "root_enum_seconds_per_fault": 0.002946674999975585,
+   "root_enum_seconds_per_class": 7.526499985033297e-05,
+   "analyzer_seconds": 0.029505427000003692,
+   "checker_seconds": 0.014466588999994201,
+   "certificate_bytes": 223683
+  },
+  {
+   "program": "polymul_schoolbook n=4",
+   "name": "polymul_schoolbook_n4",
+   "sha256": "ac5d35cb516cc03b9447830f40e47007920bc347d0add1ec79d37a30e3395f47",
+   "field": "GF(256)",
+   "instructions": 61,
+   "sites": 610,
+   "benign": 2,
+   "covered": 608,
+   "covered_wrong_possible": 320,
+   "bypass": 0,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 254,
+    "L2": 49,
+    "L3": 9,
+    "L4": 4
+   },
+   "classes_covered_wrong": {
+    "L1": 96,
+    "L2": 47,
+    "L3": 7,
+    "L4": 2
+   },
+   "sum_naive_degree": 960,
+   "sum_certified_bound": 300,
+   "exact_certificates": 320,
+   "exact_classes": 2,
+   "root_enum_seconds_per_fault": 0.012745447999805037,
+   "root_enum_seconds_per_class": 8.383999988836877e-05,
+   "analyzer_seconds": 0.2187796560001516,
+   "checker_seconds": 0.12188692499989884,
+   "certificate_bytes": 757935
+  },
+  {
+   "program": "polymul_schoolbook n=6",
+   "name": "polymul_schoolbook_n6",
+   "sha256": "53d54b4efc6d6b28ba50b536e157a88f0b10a6a3889976cdd0dc1445379db201",
+   "field": "GF(256)",
+   "instructions": 117,
+   "sites": 1170,
+   "benign": 2,
+   "covered": 1168,
+   "covered_wrong_possible": 720,
+   "bypass": 0,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 430,
+    "L2": 109,
+    "L3": 13,
+    "L4": 4
+   },
+   "classes_covered_wrong": {
+    "L1": 184,
+    "L2": 107,
+    "L3": 11,
+    "L4": 2
+   },
+   "sum_naive_degree": 3600,
+   "sum_certified_bound": 700,
+   "exact_certificates": 720,
+   "exact_classes": 2,
+   "root_enum_seconds_per_fault": 0.02838061500006006,
+   "root_enum_seconds_per_class": 7.642299988219747e-05,
+   "analyzer_seconds": 1.045233545999963,
+   "checker_seconds": 0.5665271249999932,
+   "certificate_bytes": 1729771
+  },
+  {
+   "program": "polymul_karatsuba2",
+   "name": "polymul_karatsuba2",
+   "sha256": "d53f27d74d97415d4ca2293ecd7d9cfb3fc257ee5e3152a95ccae2ee8aa5f594",
+   "field": "GF(256)",
+   "instructions": 22,
+   "sites": 220,
+   "benign": 2,
+   "covered": 218,
+   "covered_wrong_possible": 90,
+   "bypass": 0,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 134,
+    "L2": 17,
+    "L3": 7,
+    "L4": 6
+   },
+   "classes_covered_wrong": {
+    "L1": 64,
+    "L2": 15,
+    "L3": 5,
+    "L4": 4
+   },
+   "sum_naive_degree": 100,
+   "sum_certified_bound": 90,
+   "exact_certificates": 90,
+   "exact_classes": 4,
+   "root_enum_seconds_per_fault": 0.0043630309999116434,
+   "root_enum_seconds_per_class": 0.0002811049998854287,
+   "analyzer_seconds": 0.03582195900003171,
+   "checker_seconds": 0.01904047699986222,
+   "certificate_bytes": 240214
+  },
+  {
+   "program": "butterfly4",
+   "name": "butterfly4",
+   "sha256": "976f4f338f4ed3843e440856cde1b88faa6b1f52d1828fceb94c4c3dc62f6af4",
+   "field": "GF(256)",
+   "instructions": 55,
+   "sites": 550,
+   "benign": 4,
+   "covered": 546,
+   "covered_wrong_possible": 150,
+   "bypass": 0,
+   "unknown": 0,
+   "classes_all": {
+    "L1": 290,
+    "L2": 25,
+    "L3": 10,
+    "L4": 9
+   },
+   "classes_covered_wrong": {
+    "L1": 94,
+    "L2": 23,
+    "L3": 8,
+    "L4": 7
+   },
+   "sum_naive_degree": 370,
+   "sum_certified_bound": 260,
+   "exact_certificates": 140,
+   "exact_classes": 6,
+   "root_enum_seconds_per_fault": 0.015784606000124768,
+   "root_enum_seconds_per_class": 0.0006953399999929388,
+   "analyzer_seconds": 0.17311255200002051,
+   "checker_seconds": 0.09739155099987329,
+   "certificate_bytes": 673141
+  }
+ ]
+}
