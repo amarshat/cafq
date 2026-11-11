@@ -8,7 +8,7 @@ Date: 2026-11-11. This is a falsifiable decision memo, not a success report.
 |---|---|---|
 | 0 | H-AR is not DFAR, and is not ours to claim. Baseline under test | DFAR: `K̂ ⊕ F(c,c̄) ⊕ F(c,c)`. H-AR: polynomial discrepancy into a KDF. DFAR has priority on decision-free rejection |
 | 1 | **H-AR as specified: refuted.** Shifted H-AR: unproved, no advantage over DFAR. **No-go** as an invention | Coordinate 0 multiplies `ρ^0`: the returned key is predictable, giving a plaintext-checking oracle with no fault |
-| 2 | **CAFQ: go**, claim narrowed, cost hypothesis dropped | Sound on every exhaustive instance; 8–17× fewer classes than exact collapsing; no time saving |
+| 2 | **CAFQ: go**, claim narrowed, cost hypothesis dropped | Sound on every exhaustive instance; 10–17× fewer classes than exact collapsing; no time saving |
 
 ## Status of each claim
 

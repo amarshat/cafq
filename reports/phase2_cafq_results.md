@@ -75,7 +75,7 @@ output are counted, so false-alarm faults do not inflate the comparison.
 
 Two measured effects:
 
-* **Fewer classes.** L3 has 8–17× fewer classes than exact collapsing on the
+* **Fewer classes.** L3 has 10–17× fewer classes than exact collapsing on the
   multipliers and butterfly network; L4 more. No reduction on the AR circuit.
 * **Tighter bounds.** The root-bound numerators summed over faults drop from
   3600 to 700 for schoolbook n=6, because `g = u(x)·R^k` has one root, not
