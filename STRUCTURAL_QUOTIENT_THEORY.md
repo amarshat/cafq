@@ -352,7 +352,9 @@ Measured values: `data/structural_benchmarks.md`, summarised in
   "covered, no wrong output" either disables detection for some data fault on
   some state, or weakens a bound. Exactly two checker faults per program (skip
   or zero of the final discrepancy write) disable detection for every data
-  fault on every state.
+  fault on every state — and those two are precisely the checker faults the
+  single-fault model labels **benign**: with `g ≡ 0`, not writing `disc`
+  changes nothing until a second fault needs detecting.
 * **"Bypass" is existential in the state.** For most two-fault pairs the
   bypass state is special (the two error terms cancel). Its density among
   states was not measured; where the state is secret and not adversarial this

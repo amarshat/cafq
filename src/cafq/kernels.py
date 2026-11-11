@@ -54,3 +54,33 @@ def cyclic_mul(n: int, m: int = 8, weak: bool = False) -> Program:
     ins.append(Instr("add", "disc", "lhs", "rhs", "check"))
     name = f"cyclic_mul_n{n}" + ("_weakcheck" if weak else "")
     return Program(name, m, MODULI[m], a + b, "R", ins, c, "disc")
+
+
+def karatsuba2_memory_model(m: int = 8) -> Program:
+    """`polymul_karatsuba2` with the two things the compiled kernel has and
+    the plain IR program lacks: every input is LOADED once into a local that
+    both the data path and the checker use, and every output is STORED from
+    the local the checker has already read. Models src/compiled/kernel.c."""
+    A, B = ["A0", "A1"], ["B0", "B1"]
+    a, b, p = ["a0", "a1"], ["b0", "b1"], ["p0", "p1", "p2"]
+    ins = [Instr("mov", a[0], A[0], None, "load"), Instr("mov", a[1], A[1], None, "load"),
+           Instr("mov", b[0], B[0], None, "load"), Instr("mov", b[1], B[1], None, "load"),
+           Instr("mul", "m0", "a0", "b0", "data"),
+           Instr("mul", "m2", "a1", "b1", "data"),
+           Instr("add", "sa", "a0", "a1", "data"),
+           Instr("add", "sb", "b0", "b1", "data"),
+           Instr("mul", "m1", "sa", "sb", "data"),
+           Instr("mov", "p0", "m0", None, "data"),
+           Instr("add", "p1", "m1", "m0", "data"),
+           Instr("add", "p1", "p1", "m2", "data"),
+           Instr("mov", "p2", "m2", None, "data"),
+           Instr("mov", "o0", "p0", None, "store"),
+           Instr("mov", "o1", "p1", None, "store"),
+           Instr("mov", "o2", "p2", None, "store")]
+    ins += _horner("ea", a, "R", "check")
+    ins += _horner("eb", b, "R", "check")
+    ins += _horner("ep", p, "R", "check")
+    ins.append(Instr("mul", "eab", "ea", "eb", "check"))
+    ins.append(Instr("add", "disc", "eab", "ep", "check"))
+    return Program("polymul_karatsuba2_memory_model", m, MODULI[m], A + B, "R", ins,
+                   ["o0", "o1", "o2"], "disc")

@@ -312,3 +312,29 @@ def test_leakage_flags_are_reported_for_every_templated_fault():
     data = [c for c in flagged if c["mode"] == "template"]
     assert all(c["flags"]["effect_depends_on_state"] is (c["fault"]["kind"] != "bitflip")
                for c in data)
+
+
+def test_memory_model_predicts_the_compiled_kernel_bypasses():
+    """Give the IR explicit input loads and output stores (as the compiled
+    kernel has) and the structural analysis finds, by Theorem S3, exactly the
+    bypass sites the instruction-skip emulation found in the gcc -O2 binary:
+    4 input loads (data and check use the same corrupted local) and 3 output
+    stores (the check read the local, not what was stored). Compare
+    data/compiled_kernel_study.md."""
+    from cafq.kernels import karatsuba2_memory_model
+    prog = karatsuba2_memory_model()
+    res = S.generate(prog)
+    assert SC.check(*wire(prog, res.document))["ok"]
+    base = {c["site_id"]: c["classification"] for c in analyze(prog).certificates if c["fault"]}
+    bypass_sites = set()
+    for c in res.faults:
+        assert c["classification"] == base[c["site_id"]]
+        if c["classification"] == "bypass":
+            assert c["mode"] == "unobserved"
+            bypass_sites.add(c["fault"]["site"])
+    regions = [prog.instrs[i].region for i in sorted(bypass_sites)]
+    assert regions == ["load"] * 4 + ["store"] * 3
+    # and nothing else in the program is a bypass or unknown
+    assert res.counts()["unknown"] == 0
+    assert all(c["classification"] != "bypass" for c in res.faults
+               if prog.instrs[c["fault"]["site"]].region in ("data", "check"))

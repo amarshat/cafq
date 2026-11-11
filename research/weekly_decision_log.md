@@ -18,3 +18,19 @@
 | 12 | One test expectation corrected during development: the nonlinear masked checker over GF(256) was first expected to be `unknown`, but random search found a bypass state; the circuit was strengthened (two masks) so that `unknown` is actually exercised | No soundness issue; recorded for transparency |
 | 13 | **Gate 2:** passed on toy-ir-v1 with a narrowed originality claim; cost-reduction hypothesis H-C-6 contradicted at this scale | `reports/phase2_cafq_results.md` |
 | 14 | Stopped before Phase 3 | Work-package execution boundary; go/no-go in `reports/final_research_assessment.md` |
+
+## 2026-11-11 — Session 2 (structural quotient directive)
+
+| # | Decision | Reason |
+|---|---|---|
+| 15 | Algebraic Rejection closed for good; counterexamples kept; DFAR stays as prior art | Directive §1 |
+| 16 | Baseline preserved: `analyze_fault` split into execution + `classify_observation`, certificates verified byte-identical before/after (SHA-256 over 10 programs) | Needed so other front ends can reuse the same classifier without touching its behaviour |
+| 17 | Structural method built on reverse-mode adjoints with formal tags, in separate modules (`structural.py`, `structural_checker.py`) | One pass yields `∂disc/∂v_i` and `∂out_j/∂v_i` for all sites |
+| 18 | Fault-linearity decided by a bit-set taint pass; first-order templates refused elsewhere | Counterexamples `square_check` (derivative 0 in characteristic 2, effect `δ²R`) and `nonlinear_trap` (effect `δ(δ+x₁)`) |
+| 19 | Added a prefix-cached per-fault baseline (A′) | Comparing only against full re-execution would be a weakened comparator |
+| 20 | After the tautological-check kernel showed almost no gain (7.3 s vs 8.5 s), added the unobserved-site rule (`Jd = 0`) with algebraic bypass certificates | The cost was in per-fault bypass search and concrete replay; the structure makes both unnecessary. Recorded because the first measurement was a failure |
+| 21 | Class keys are derived by the structural checker, never read from certificates | Removes the "unsound merge" attack surface instead of testing for it |
+| 22 | Two-fault cross-check first reported 16–42 "mismatches"; all were bypass-vs-unknown from the incomplete randomised search, none covered-vs-not. Tool now separates the two | Avoids both hiding and overstating a discrepancy |
+| 23 | Compiled-kernel emulation: code segments mapped read-only after a skip caused a wild write into code and desynchronised the replay | Found by an internal consistency assertion |
+| 24 | Quadratic duplicate detection replaced by a linear one in **both** checkers | It would otherwise have inflated checker time at 22k faults; applied to the baseline too so the comparison is not skewed |
+| 25 | Decision recorded in `NOVELTY_AND_GO_NO_GO.md` | Directive §8 |
