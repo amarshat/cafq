@@ -213,7 +213,11 @@ def check(program: dict, certificates: list[dict], kinds=KINDS) -> dict:
         errors.append(f"manifest: no certificate for in-scope fault {sid}")
     for sid in sorted(set(seen) - expected):
         errors.append(f"manifest: certificate for out-of-scope fault {sid}")
-    for sid in sorted({s for s in seen if seen.count(s) > 1}):
+    once: set = set()
+    twice: set = set()
+    for s in seen:
+        (twice if s in once else once).add(s)
+    for sid in sorted(twice, key=str):
         errors.append(f"manifest: duplicate certificate for {sid}")
 
     for cert in certificates:

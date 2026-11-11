@@ -1,0 +1,147 @@
+
+/home/user/cafq/data/compiled/kernel-gcc-O0.elf:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <gf_mul>:
+  401000:	push   %rbp
+  401001:	mov    %rsp,%rbp
+  401004:	mov    %edi,%edx
+  401006:	mov    %esi,%eax
+  401008:	mov    %dl,-0x14(%rbp)
+  40100b:	mov    %al,-0x18(%rbp)
+  40100e:	movb   $0x0,-0x1(%rbp)
+  401012:	movl   $0x0,-0x8(%rbp)
+  401019:	jmp    40104e <gf_mul+0x4e>
+  40101b:	movzbl -0x18(%rbp),%eax
+  40101f:	and    $0x1,%eax
+  401022:	neg    %eax
+  401024:	and    -0x14(%rbp),%al
+  401027:	xor    %al,-0x1(%rbp)
+  40102a:	movzbl -0x14(%rbp),%eax
+  40102e:	sar    $0x7,%al
+  401031:	mov    %al,-0x9(%rbp)
+  401034:	movzbl -0x14(%rbp),%eax
+  401038:	lea    (%rax,%rax,1),%edx
+  40103b:	movzbl -0x9(%rbp),%eax
+  40103f:	and    $0x1b,%eax
+  401042:	xor    %edx,%eax
+  401044:	mov    %al,-0x14(%rbp)
+  401047:	shrb   $1,-0x18(%rbp)
+  40104a:	addl   $0x1,-0x8(%rbp)
+  40104e:	cmpl   $0x7,-0x8(%rbp)
+  401052:	jle    40101b <gf_mul+0x1b>
+  401054:	movzbl -0x1(%rbp),%eax
+  401058:	pop    %rbp
+  401059:	ret
+
+000000000040105a <kernel>:
+  40105a:	push   %rbp
+  40105b:	mov    %rsp,%rbp
+  40105e:	push   %rbx
+  40105f:	sub    $0x20,%rsp
+  401063:	mov    %rdi,-0x20(%rbp)
+  401067:	mov    %rsi,-0x28(%rbp)
+  40106b:	mov    -0x20(%rbp),%rax
+  40106f:	movzbl (%rax),%eax
+  401072:	mov    %al,-0x9(%rbp)
+  401075:	mov    -0x20(%rbp),%rax
+  401079:	add    $0x1,%rax
+  40107d:	movzbl (%rax),%eax
+  401080:	mov    %al,-0xa(%rbp)
+  401083:	mov    -0x20(%rbp),%rax
+  401087:	add    $0x2,%rax
+  40108b:	movzbl (%rax),%eax
+  40108e:	mov    %al,-0xb(%rbp)
+  401091:	mov    -0x20(%rbp),%rax
+  401095:	add    $0x3,%rax
+  401099:	movzbl (%rax),%eax
+  40109c:	mov    %al,-0xc(%rbp)
+  40109f:	mov    -0x20(%rbp),%rax
+  4010a3:	add    $0x4,%rax
+  4010a7:	movzbl (%rax),%eax
+  4010aa:	mov    %al,-0xd(%rbp)
+  4010ad:	movzbl -0xb(%rbp),%edx
+  4010b1:	movzbl -0x9(%rbp),%eax
+  4010b5:	mov    %edx,%esi
+  4010b7:	mov    %eax,%edi
+  4010b9:	call   401000 <gf_mul>
+  4010be:	mov    %al,-0xe(%rbp)
+  4010c1:	movzbl -0xc(%rbp),%edx
+  4010c5:	movzbl -0xa(%rbp),%eax
+  4010c9:	mov    %edx,%esi
+  4010cb:	mov    %eax,%edi
+  4010cd:	call   401000 <gf_mul>
+  4010d2:	mov    %al,-0xf(%rbp)
+  4010d5:	movzbl -0x9(%rbp),%eax
+  4010d9:	xor    -0xa(%rbp),%al
+  4010dc:	mov    %al,-0x10(%rbp)
+  4010df:	movzbl -0xb(%rbp),%eax
+  4010e3:	xor    -0xc(%rbp),%al
+  4010e6:	mov    %al,-0x11(%rbp)
+  4010e9:	movzbl -0x11(%rbp),%edx
+  4010ed:	movzbl -0x10(%rbp),%eax
+  4010f1:	mov    %edx,%esi
+  4010f3:	mov    %eax,%edi
+  4010f5:	call   401000 <gf_mul>
+  4010fa:	mov    %al,-0x12(%rbp)
+  4010fd:	movzbl -0xe(%rbp),%eax
+  401101:	mov    %al,-0x13(%rbp)
+  401104:	movzbl -0x12(%rbp),%eax
+  401108:	xor    -0xe(%rbp),%al
+  40110b:	xor    -0xf(%rbp),%al
+  40110e:	mov    %al,-0x14(%rbp)
+  401111:	movzbl -0xf(%rbp),%eax
+  401115:	mov    %al,-0x15(%rbp)
+  401118:	mov    -0x28(%rbp),%rax
+  40111c:	movzbl -0x13(%rbp),%edx
+  401120:	mov    %dl,(%rax)
+  401122:	mov    -0x28(%rbp),%rax
+  401126:	lea    0x1(%rax),%rdx
+  40112a:	movzbl -0x14(%rbp),%eax
+  40112e:	mov    %al,(%rdx)
+  401130:	mov    -0x28(%rbp),%rax
+  401134:	lea    0x2(%rax),%rdx
+  401138:	movzbl -0x15(%rbp),%eax
+  40113c:	mov    %al,(%rdx)
+  40113e:	movzbl -0xd(%rbp),%edx
+  401142:	movzbl -0xa(%rbp),%eax
+  401146:	mov    %edx,%esi
+  401148:	mov    %eax,%edi
+  40114a:	call   401000 <gf_mul>
+  40114f:	xor    -0x9(%rbp),%al
+  401152:	mov    %al,-0x16(%rbp)
+  401155:	movzbl -0xd(%rbp),%edx
+  401159:	movzbl -0xc(%rbp),%eax
+  40115d:	mov    %edx,%esi
+  40115f:	mov    %eax,%edi
+  401161:	call   401000 <gf_mul>
+  401166:	xor    -0xb(%rbp),%al
+  401169:	mov    %al,-0x17(%rbp)
+  40116c:	movzbl -0xd(%rbp),%ebx
+  401170:	movzbl -0xd(%rbp),%edx
+  401174:	movzbl -0x15(%rbp),%eax
+  401178:	mov    %edx,%esi
+  40117a:	mov    %eax,%edi
+  40117c:	call   401000 <gf_mul>
+  401181:	xor    -0x14(%rbp),%al
+  401184:	movzbl %al,%eax
+  401187:	mov    %ebx,%esi
+  401189:	mov    %eax,%edi
+  40118b:	call   401000 <gf_mul>
+  401190:	xor    -0x13(%rbp),%al
+  401193:	mov    %al,-0x18(%rbp)
+  401196:	movzbl -0x17(%rbp),%edx
+  40119a:	movzbl -0x16(%rbp),%eax
+  40119e:	mov    %edx,%esi
+  4011a0:	mov    %eax,%edi
+  4011a2:	call   401000 <gf_mul>
+  4011a7:	mov    -0x28(%rbp),%rdx
+  4011ab:	add    $0x3,%rdx
+  4011af:	xor    -0x18(%rbp),%al
+  4011b2:	mov    %al,(%rdx)
+  4011b4:	nop
+  4011b5:	mov    -0x8(%rbp),%rbx
+  4011b9:	leave
+  4011ba:	ret

@@ -263,3 +263,52 @@ def test_common_mode_fold_fault_is_detected_only_through_the_exact_relation():
     assert P.jd[site] == Poly(F, {(("R", n),): 1})
     cert = next(c for c in res.faults if c["site_id"] == f"bitflip@{site}.b0")
     assert cert["classification"] == "covered" and cert["degree_bound"] == 1
+
+
+def test_COUNTEREXAMPLE_same_class_different_observations():
+    """Theory C3: the structural class preserves the conditional undetected
+    set and nothing else. Karatsuba site m0 (instruction 0): the bit flip and
+    the result-zero fault share template and class, but 'the output is wrong'
+    is state-independent for one and secret-dependent for the other, and the
+    unconditional non-detection probabilities over a uniform state differ."""
+    prog = C.polymul_karatsuba2(m=2)
+    q = 4
+    res = S.generate(prog)
+    report = SC.check(*wire(prog, res.document))
+    by = {c["site_id"]: c for c in res.faults}
+    flip, zero = by["bitflip@0.b0"], by["zero@0"]
+    where = {sid: k for k, members in report["classes"].items() for sid in members}
+    assert flip["template"] == zero["template"]
+    assert where["bitflip@0.b0"] == where["zero@0"]
+    assert flip["flags"]["effect_depends_on_state"] is False
+    assert zero["flags"]["effect_depends_on_state"] is True
+
+    stats = {}
+    for cert in (flip, zero):
+        wrong_states = bad = total = 0
+        und_sets = set()
+        for x, _, wrong_any, und, _ in ground_truth(prog, fault_of(cert)):
+            total += 1
+            if wrong_any:
+                wrong_states += 1
+                und_sets.add(frozenset(und))
+                bad += len(und)
+        stats[cert["site_id"]] = (wrong_states, total, und_sets, bad / (total * q))
+    # identical conditional undetected set on every wrong state ...
+    assert stats["bitflip@0.b0"][2] == stats["zero@0"][2] == {frozenset({1})}
+    # ... but the set of wrong states differs (all states vs a0*b0 != 0)
+    assert stats["bitflip@0.b0"][0] == stats["bitflip@0.b0"][1] == q ** 4
+    assert stats["zero@0"][0] == (q - 1) ** 2 * q ** 2
+    # ... and so does the unconditional non-detection probability
+    assert stats["bitflip@0.b0"][3] == 1 / q
+    assert stats["zero@0"][3] == ((q - 1) / q) ** 2 / q
+
+
+def test_leakage_flags_are_reported_for_every_templated_fault():
+    res = S.generate(C.polymul_schoolbook(3))
+    flagged = [c for c in res.faults if c["mode"] in ("template", "no-reach")]
+    assert flagged and all("flags" in c for c in flagged)
+    # bit flips in the data path are always effective; zero/skip are not
+    data = [c for c in flagged if c["mode"] == "template"]
+    assert all(c["flags"]["effect_depends_on_state"] is (c["fault"]["kind"] != "bitflip")
+               for c in data)

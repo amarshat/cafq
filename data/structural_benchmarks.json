@@ -1,0 +1,1405 @@
+{
+ "environment": {
+  "python": "3.13.18",
+  "system": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
+  "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+  "git_revision": "67a5cec1084f54c44ecda536e7505485d256149f",
+  "src_dirty": true,
+  "repetitions": 3,
+  "timing": "best of repetitions, wall-clock, single thread"
+ },
+ "rows": [
+  {
+   "program": "schoolbook n=4",
+   "name": "polymul_schoolbook_n4",
+   "sha256": "ac5d35cb516cc03b9447830f40e47007920bc347d0add1ec79d37a30e3395f47",
+   "field": "GF(256)",
+   "instructions": 61,
+   "faults": 610,
+   "C": {
+    "gen_s": 0.009908302999974694,
+    "check_s": 0.0059158029999935025,
+    "total_s": 0.015824105999968197,
+    "certificate_bytes": 138313,
+    "templates": 22,
+    "classes_covered_wrong": 7,
+    "classes_all": 9,
+    "modes": {
+     "template": 320,
+     "no-reach": 288,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 61,
+     "backward_instr": 61,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 288,
+     "template_analyses": 22,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 22,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 320
+    },
+    "symbolic_instr_gen": 122,
+    "symbolic_instr_check": 122,
+    "expensive_analyses": 22,
+    "peak_mb": 1.051559,
+    "counts": {
+     "sites": 610,
+     "benign": 2,
+     "covered": 608,
+     "covered_wrong_possible": 320,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 610,
+    "benign": 2,
+    "covered": 608,
+    "covered_wrong_possible": 320,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.11890211100001125,
+    "certificate_bytes": 762212,
+    "symbolic_instr_check": 37271,
+    "expensive_analyses": 610,
+    "gen_s": 0.23419011500004672,
+    "total_s": 0.35309222600005796,
+    "symbolic_instr_gen": 37271,
+    "classes_covered_wrong": 320,
+    "root_sets": 320,
+    "peak_mb": 7.540924
+   },
+   "A_prefix": {
+    "check_s": 0.11890211100001125,
+    "certificate_bytes": 762212,
+    "symbolic_instr_check": 37271,
+    "expensive_analyses": 610,
+    "gen_s": 0.18348927599993203,
+    "total_s": 0.3023913869999433,
+    "symbolic_instr_gen": 18971,
+    "classes_covered_wrong": 320,
+    "root_sets": 320
+   },
+   "B": {
+    "check_s": 0.11890211100001125,
+    "certificate_bytes": 762212,
+    "symbolic_instr_check": 37271,
+    "expensive_analyses": 610,
+    "gen_s": 0.23419011500004672,
+    "total_s": 0.35309222600005796,
+    "symbolic_instr_gen": 37271,
+    "classes_covered_wrong": 7,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 22.31356551837858,
+   "speedup_total_vs_A_prefix": 19.10954002713019
+  },
+  {
+   "program": "schoolbook n=6",
+   "name": "polymul_schoolbook_n6",
+   "sha256": "53d54b4efc6d6b28ba50b536e157a88f0b10a6a3889976cdd0dc1445379db201",
+   "field": "GF(256)",
+   "instructions": 117,
+   "faults": 1170,
+   "C": {
+    "gen_s": 0.016551520000007258,
+    "check_s": 0.01658937899992452,
+    "total_s": 0.03314089899993178,
+    "certificate_bytes": 264714,
+    "templates": 34,
+    "classes_covered_wrong": 11,
+    "classes_all": 13,
+    "modes": {
+     "template": 720,
+     "no-reach": 448,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 117,
+     "backward_instr": 117,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 448,
+     "template_analyses": 34,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 34,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 720
+    },
+    "symbolic_instr_gen": 234,
+    "symbolic_instr_check": 234,
+    "expensive_analyses": 34,
+    "peak_mb": 2.028754,
+    "counts": {
+     "sites": 1170,
+     "benign": 2,
+     "covered": 1168,
+     "covered_wrong_possible": 720,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 1170,
+    "benign": 2,
+    "covered": 1168,
+    "covered_wrong_possible": 720,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.48734415100000206,
+    "certificate_bytes": 1737968,
+    "symbolic_instr_check": 137007,
+    "expensive_analyses": 1170,
+    "gen_s": 0.9683164110000462,
+    "total_s": 1.4556605620000482,
+    "symbolic_instr_gen": 137007,
+    "classes_covered_wrong": 720,
+    "root_sets": 720,
+    "peak_mb": 23.072879
+   },
+   "A_prefix": {
+    "check_s": 0.48734415100000206,
+    "certificate_bytes": 1737968,
+    "symbolic_instr_check": 137007,
+    "expensive_analyses": 1170,
+    "gen_s": 0.8342145479999772,
+    "total_s": 1.3215586989999792,
+    "symbolic_instr_gen": 69147,
+    "classes_covered_wrong": 720,
+    "root_sets": 720
+   },
+   "B": {
+    "check_s": 0.48734415100000206,
+    "certificate_bytes": 1737968,
+    "symbolic_instr_check": 137007,
+    "expensive_analyses": 1170,
+    "gen_s": 0.9683164110000462,
+    "total_s": 1.4556605620000482,
+    "symbolic_instr_gen": 137007,
+    "classes_covered_wrong": 11,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 43.92338789611726,
+   "speedup_total_vs_A_prefix": 39.87697192531499
+  },
+  {
+   "program": "schoolbook n=8",
+   "name": "polymul_schoolbook_n8",
+   "sha256": "f55d9e04e984bb4ae66d0a94a8c1467a18abfe4aecc2fe1fd532960ca6fc4b5f",
+   "field": "GF(256)",
+   "instructions": 189,
+   "faults": 1890,
+   "C": {
+    "gen_s": 0.034333172000060586,
+    "check_s": 0.038093454999966525,
+    "total_s": 0.07242662700002711,
+    "certificate_bytes": 427986,
+    "templates": 46,
+    "classes_covered_wrong": 15,
+    "classes_all": 17,
+    "modes": {
+     "template": 1280,
+     "no-reach": 608,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 189,
+     "backward_instr": 189,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 608,
+     "template_analyses": 46,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 46,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 1280
+    },
+    "symbolic_instr_gen": 378,
+    "symbolic_instr_check": 378,
+    "expensive_analyses": 46,
+    "peak_mb": 3.252666,
+    "counts": {
+     "sites": 1890,
+     "benign": 2,
+     "covered": 1888,
+     "covered_wrong_possible": 1280,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 1890,
+    "benign": 2,
+    "covered": 1888,
+    "covered_wrong_possible": 1280,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 1.6018093249999765,
+    "certificate_bytes": 3377608,
+    "symbolic_instr_check": 357399,
+    "expensive_analyses": 1890,
+    "gen_s": 3.1346479449999833,
+    "total_s": 4.73645726999996,
+    "symbolic_instr_gen": 357399,
+    "classes_covered_wrong": 1280,
+    "root_sets": 1280,
+    "peak_mb": 56.088569
+   },
+   "A_prefix": {
+    "check_s": 1.6018093249999765,
+    "certificate_bytes": 3377608,
+    "symbolic_instr_check": 357399,
+    "expensive_analyses": 1890,
+    "gen_s": 2.595106693000048,
+    "total_s": 4.1969160180000245,
+    "symbolic_instr_gen": 179739,
+    "classes_covered_wrong": 1280,
+    "root_sets": 1280
+   },
+   "B": {
+    "check_s": 1.6018093249999765,
+    "certificate_bytes": 3377608,
+    "symbolic_instr_check": 357399,
+    "expensive_analyses": 1890,
+    "gen_s": 3.1346479449999833,
+    "total_s": 4.73645726999996,
+    "symbolic_instr_gen": 357399,
+    "classes_covered_wrong": 15,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 65.3966291982393,
+   "speedup_total_vs_A_prefix": 57.94714170519709
+  },
+  {
+   "program": "karatsuba 2x2",
+   "name": "polymul_karatsuba2",
+   "sha256": "d53f27d74d97415d4ca2293ecd7d9cfb3fc257ee5e3152a95ccae2ee8aa5f594",
+   "field": "GF(256)",
+   "instructions": 22,
+   "faults": 220,
+   "C": {
+    "gen_s": 0.002577493999979197,
+    "check_s": 0.0021230730000070253,
+    "total_s": 0.004700566999986222,
+    "certificate_bytes": 51586,
+    "templates": 14,
+    "classes_covered_wrong": 5,
+    "classes_all": 7,
+    "modes": {
+     "template": 90,
+     "no-reach": 128,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 22,
+     "backward_instr": 22,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 148,
+     "template_analyses": 14,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 14,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 90
+    },
+    "symbolic_instr_gen": 44,
+    "symbolic_instr_check": 44,
+    "expensive_analyses": 14,
+    "peak_mb": 0.396966,
+    "counts": {
+     "sites": 220,
+     "benign": 2,
+     "covered": 218,
+     "covered_wrong_possible": 90,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 220,
+    "benign": 2,
+    "covered": 218,
+    "covered_wrong_possible": 90,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.03617286099995454,
+    "certificate_bytes": 241761,
+    "symbolic_instr_check": 4862,
+    "expensive_analyses": 220,
+    "gen_s": 0.032554236999999375,
+    "total_s": 0.06872709799995391,
+    "symbolic_instr_gen": 4862,
+    "classes_covered_wrong": 90,
+    "root_sets": 90,
+    "peak_mb": 1.859708
+   },
+   "A_prefix": {
+    "check_s": 0.03617286099995454,
+    "certificate_bytes": 241761,
+    "symbolic_instr_check": 4862,
+    "expensive_analyses": 220,
+    "gen_s": 0.0361060960000259,
+    "total_s": 0.07227895699998044,
+    "symbolic_instr_gen": 2552,
+    "classes_covered_wrong": 90,
+    "root_sets": 90
+   },
+   "B": {
+    "check_s": 0.03617286099995454,
+    "certificate_bytes": 241761,
+    "symbolic_instr_check": 4862,
+    "expensive_analyses": 220,
+    "gen_s": 0.032554236999999375,
+    "total_s": 0.06872709799995391,
+    "symbolic_instr_gen": 4862,
+    "classes_covered_wrong": 5,
+    "classes_L4": 4,
+    "root_sets": 4
+   },
+   "speedup_total_vs_A": 14.621022953221464,
+   "speedup_total_vs_A_prefix": 15.376646476944654
+  },
+  {
+   "program": "butterfly 4",
+   "name": "butterfly4",
+   "sha256": "976f4f338f4ed3843e440856cde1b88faa6b1f52d1828fceb94c4c3dc62f6af4",
+   "field": "GF(256)",
+   "instructions": 55,
+   "faults": 550,
+   "C": {
+    "gen_s": 0.00754357899995739,
+    "check_s": 0.007294562000083715,
+    "total_s": 0.014838141000041105,
+    "certificate_bytes": 129147,
+    "templates": 30,
+    "classes_covered_wrong": 8,
+    "classes_all": 10,
+    "modes": {
+     "template": 150,
+     "no-reach": 396,
+     "delta-zero": 4
+    },
+    "work_gen": {
+     "forward_instr": 55,
+     "backward_instr": 55,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 426,
+     "template_analyses": 30,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 30,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 150
+    },
+    "symbolic_instr_gen": 110,
+    "symbolic_instr_check": 110,
+    "expensive_analyses": 30,
+    "peak_mb": 0.998068,
+    "counts": {
+     "sites": 550,
+     "benign": 4,
+     "covered": 546,
+     "covered_wrong_possible": 150,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 550,
+    "benign": 4,
+    "covered": 546,
+    "covered_wrong_possible": 150,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.09004910200007998,
+    "certificate_bytes": 676998,
+    "symbolic_instr_check": 30305,
+    "expensive_analyses": 550,
+    "gen_s": 0.16179136300002028,
+    "total_s": 0.25184046500010027,
+    "symbolic_instr_gen": 30305,
+    "classes_covered_wrong": 150,
+    "root_sets": 140,
+    "peak_mb": 5.192253
+   },
+   "A_prefix": {
+    "check_s": 0.09004910200007998,
+    "certificate_bytes": 676998,
+    "symbolic_instr_check": 30305,
+    "expensive_analyses": 550,
+    "gen_s": 0.1300607079999736,
+    "total_s": 0.22010981000005359,
+    "symbolic_instr_gen": 15455,
+    "classes_covered_wrong": 150,
+    "root_sets": 140
+   },
+   "B": {
+    "check_s": 0.09004910200007998,
+    "certificate_bytes": 676998,
+    "symbolic_instr_check": 30305,
+    "expensive_analyses": 550,
+    "gen_s": 0.16179136300002028,
+    "total_s": 0.25184046500010027,
+    "symbolic_instr_gen": 30305,
+    "classes_covered_wrong": 8,
+    "classes_L4": 7,
+    "root_sets": 6
+   },
+   "speedup_total_vs_A": 16.972507876788786,
+   "speedup_total_vs_A_prefix": 14.834055694675218
+  },
+  {
+   "program": "cyclic mul n=5",
+   "name": "cyclic_mul_n5",
+   "sha256": "59caacae7d0d56460fb15b74d6d1ee369ab5977b5d0f0aa33d722f81146b575d",
+   "field": "GF(256)",
+   "instructions": 100,
+   "faults": 1000,
+   "C": {
+    "gen_s": 0.01240527300001304,
+    "check_s": 0.013071963000015785,
+    "total_s": 0.025477236000028824,
+    "certificate_bytes": 227306,
+    "templates": 33,
+    "classes_covered_wrong": 9,
+    "classes_all": 11,
+    "modes": {
+     "template": 550,
+     "no-reach": 448,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 100,
+     "backward_instr": 100,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 448,
+     "template_analyses": 33,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 33,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 550
+    },
+    "symbolic_instr_gen": 200,
+    "symbolic_instr_check": 200,
+    "expensive_analyses": 33,
+    "peak_mb": 1.734747,
+    "counts": {
+     "sites": 1000,
+     "benign": 2,
+     "covered": 998,
+     "covered_wrong_possible": 550,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 1000,
+    "benign": 2,
+    "covered": 998,
+    "covered_wrong_possible": 550,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.29393585599996186,
+    "certificate_bytes": 1383973,
+    "symbolic_instr_check": 100100,
+    "expensive_analyses": 1000,
+    "gen_s": 0.569182842000032,
+    "total_s": 0.8631186979999939,
+    "symbolic_instr_gen": 100100,
+    "classes_covered_wrong": 550,
+    "root_sets": 550,
+    "peak_mb": 14.292143
+   },
+   "A_prefix": {
+    "check_s": 0.29393585599996186,
+    "certificate_bytes": 1383973,
+    "symbolic_instr_check": 100100,
+    "expensive_analyses": 1000,
+    "gen_s": 0.3906850990000521,
+    "total_s": 0.684620955000014,
+    "symbolic_instr_gen": 50600,
+    "classes_covered_wrong": 550,
+    "root_sets": 550
+   },
+   "B": {
+    "check_s": 0.29393585599996186,
+    "certificate_bytes": 1383973,
+    "symbolic_instr_check": 100100,
+    "expensive_analyses": 1000,
+    "gen_s": 0.569182842000032,
+    "total_s": 0.8631186979999939,
+    "symbolic_instr_gen": 100100,
+    "classes_covered_wrong": 9,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 33.87803519969817,
+   "speedup_total_vs_A_prefix": 26.87186926396723
+  },
+  {
+   "program": "cyclic mul n=7",
+   "name": "cyclic_mul_n7",
+   "sha256": "0da193d58eaa833e579d88a1746fc56f81a5ca8993028ac2f413df7be618bc12",
+   "field": "GF(256)",
+   "instructions": 168,
+   "faults": 1680,
+   "C": {
+    "gen_s": 0.020899703999930352,
+    "check_s": 0.028107907999924464,
+    "total_s": 0.04900761199985482,
+    "certificate_bytes": 384700,
+    "templates": 47,
+    "classes_covered_wrong": 13,
+    "classes_all": 15,
+    "modes": {
+     "template": 1050,
+     "no-reach": 628,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 168,
+     "backward_instr": 168,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 628,
+     "template_analyses": 47,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 47,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 1050
+    },
+    "symbolic_instr_gen": 336,
+    "symbolic_instr_check": 336,
+    "expensive_analyses": 47,
+    "peak_mb": 2.970503,
+    "counts": {
+     "sites": 1680,
+     "benign": 2,
+     "covered": 1678,
+     "covered_wrong_possible": 1050,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 1680,
+    "benign": 2,
+    "covered": 1678,
+    "covered_wrong_possible": 1050,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 1.0658914229999255,
+    "certificate_bytes": 2813693,
+    "symbolic_instr_check": 282408,
+    "expensive_analyses": 1680,
+    "gen_s": 1.8748189630000525,
+    "total_s": 2.940710385999978,
+    "symbolic_instr_gen": 282408,
+    "classes_covered_wrong": 1050,
+    "root_sets": 1050,
+    "peak_mb": 39.662877
+   },
+   "A_prefix": {
+    "check_s": 1.0658914229999255,
+    "certificate_bytes": 2813693,
+    "symbolic_instr_check": 282408,
+    "expensive_analyses": 1680,
+    "gen_s": 1.5107766349999565,
+    "total_s": 2.576668057999882,
+    "symbolic_instr_gen": 142128,
+    "classes_covered_wrong": 1050,
+    "root_sets": 1050
+   },
+   "B": {
+    "check_s": 1.0658914229999255,
+    "certificate_bytes": 2813693,
+    "symbolic_instr_check": 282408,
+    "expensive_analyses": 1680,
+    "gen_s": 1.8748189630000525,
+    "total_s": 2.940710385999978,
+    "symbolic_instr_gen": 282408,
+    "classes_covered_wrong": 13,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 60.00517605323617,
+   "speedup_total_vs_A_prefix": 52.57689474866711
+  },
+  {
+   "program": "cyclic mul n=11",
+   "name": "cyclic_mul_n11",
+   "sha256": "116c1dc4e76943506d8cc9471f7bb9ce208b56671bbeff834e2acc1796f46b68",
+   "field": "GF(256)",
+   "instructions": 352,
+   "faults": 3520,
+   "C": {
+    "gen_s": 0.0748139079998964,
+    "check_s": 0.12249476400006643,
+    "total_s": 0.19730867199996283,
+    "certificate_bytes": 818090,
+    "templates": 75,
+    "classes_covered_wrong": 21,
+    "classes_all": 23,
+    "modes": {
+     "template": 2530,
+     "no-reach": 988,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 352,
+     "backward_instr": 352,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 988,
+     "template_analyses": 75,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 75,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 2530
+    },
+    "symbolic_instr_gen": 704,
+    "symbolic_instr_check": 704,
+    "expensive_analyses": 75,
+    "peak_mb": 6.464009,
+    "counts": {
+     "sites": 3520,
+     "benign": 2,
+     "covered": 3518,
+     "covered_wrong_possible": 2530,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 3520,
+    "benign": 2,
+    "covered": 3518,
+    "covered_wrong_possible": 2530,
+    "bypass": 0,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 5.826149677000103,
+    "certificate_bytes": 8729401,
+    "symbolic_instr_check": 1239392,
+    "expensive_analyses": 3520,
+    "gen_s": 11.191592409000009,
+    "total_s": 17.017742086000112,
+    "symbolic_instr_gen": 1239392,
+    "classes_covered_wrong": 2530,
+    "root_sets": 2530,
+    "peak_mb": 177.481875
+   },
+   "A_prefix": {
+    "check_s": 5.826149677000103,
+    "certificate_bytes": 8729401,
+    "symbolic_instr_check": 1239392,
+    "expensive_analyses": 3520,
+    "gen_s": 8.713129031999983,
+    "total_s": 14.539278709000087,
+    "symbolic_instr_gen": 621632,
+    "classes_covered_wrong": 2530,
+    "root_sets": 2530
+   },
+   "B": {
+    "check_s": 5.826149677000103,
+    "certificate_bytes": 8729401,
+    "symbolic_instr_check": 1239392,
+    "expensive_analyses": 3520,
+    "gen_s": 11.191592409000009,
+    "total_s": 17.017742086000112,
+    "symbolic_instr_gen": 1239392,
+    "classes_covered_wrong": 21,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 86.24933670428494,
+   "speedup_total_vs_A_prefix": 73.68798624828221
+  },
+  {
+   "program": "cyclic mul n=5, tautological check",
+   "name": "cyclic_mul_n5_weakcheck",
+   "sha256": "fc6eebe040d9b9433be00d98e8cc509c415d29eecece42cb4f35e415fef5155d",
+   "field": "GF(256)",
+   "instructions": 98,
+   "faults": 980,
+   "C": {
+    "gen_s": 0.014387398999929246,
+    "check_s": 0.014004472000010537,
+    "total_s": 0.028391870999939783,
+    "certificate_bytes": 308518,
+    "templates": 28,
+    "classes_covered_wrong": 5,
+    "classes_all": 507,
+    "modes": {
+     "unobserved": 500,
+     "template": 50,
+     "no-reach": 428,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 98,
+     "backward_instr": 98,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 928,
+     "template_analyses": 28,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 23,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 50
+    },
+    "symbolic_instr_gen": 196,
+    "symbolic_instr_check": 196,
+    "expensive_analyses": 28,
+    "peak_mb": 2.198437,
+    "counts": {
+     "sites": 980,
+     "benign": 2,
+     "covered": 478,
+     "covered_wrong_possible": 50,
+     "bypass": 500,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 980,
+    "benign": 2,
+    "covered": 478,
+    "covered_wrong_possible": 50,
+    "bypass": 500,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 6.616640650000022,
+    "certificate_bytes": 1617520,
+    "symbolic_instr_check": 96138,
+    "expensive_analyses": 980,
+    "gen_s": 1.3639774920000036,
+    "total_s": 7.980618142000026,
+    "symbolic_instr_gen": 96138,
+    "classes_covered_wrong": 50,
+    "root_sets": 50,
+    "peak_mb": 19.254087
+   },
+   "A_prefix": {
+    "check_s": 6.616640650000022,
+    "certificate_bytes": 1617520,
+    "symbolic_instr_check": 96138,
+    "expensive_analyses": 980,
+    "gen_s": 1.2400604540000586,
+    "total_s": 7.856701104000081,
+    "symbolic_instr_gen": 48608,
+    "classes_covered_wrong": 50,
+    "root_sets": 50
+   },
+   "B": {
+    "check_s": 6.616640650000022,
+    "certificate_bytes": 1617520,
+    "symbolic_instr_check": 96138,
+    "expensive_analyses": 980,
+    "gen_s": 1.3639774920000036,
+    "total_s": 7.980618142000026,
+    "symbolic_instr_gen": 96138,
+    "classes_covered_wrong": 5,
+    "classes_L4": 2,
+    "root_sets": 2
+   },
+   "speedup_total_vs_A": 281.0881375875846,
+   "speedup_total_vs_A_prefix": 276.7236123331479
+  },
+  {
+   "program": "AR discrepancy n=6 (adversarial input)",
+   "name": "ar_discrepancy_n6_shift0",
+   "sha256": "87b1c9a545afa1d0fc98338513ca41855dd297da7de8a3fc0228f9d4e19d07ac",
+   "field": "GF(256)",
+   "instructions": 18,
+   "faults": 180,
+   "C": {
+    "gen_s": 0.046888144000035936,
+    "check_s": 0.42400192799993874,
+    "total_s": 0.4708900719999747,
+    "certificate_bytes": 154328,
+    "templates": 6,
+    "classes_covered_wrong": 0,
+    "classes_all": 180,
+    "modes": {
+     "synth": 180
+    },
+    "work_gen": {
+     "forward_instr": 18,
+     "backward_instr": 18,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 180,
+     "template_analyses": 6,
+     "baseline_classifications": 180
+    },
+    "work_check": {
+     "templates_checked": 0,
+     "per_fault_poly_mul": 180,
+     "per_fault_executions": 0,
+     "template_faults": 0
+    },
+    "symbolic_instr_gen": 36,
+    "symbolic_instr_check": 36,
+    "expensive_analyses": 186,
+    "peak_mb": 2.246589,
+    "counts": {
+     "sites": 180,
+     "benign": 0,
+     "covered": 0,
+     "covered_wrong_possible": 0,
+     "bypass": 180,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 180,
+    "benign": 0,
+    "covered": 0,
+    "covered_wrong_possible": 0,
+    "bypass": 180,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.4765651710000611,
+    "certificate_bytes": 349727,
+    "symbolic_instr_check": 3258,
+    "expensive_analyses": 180,
+    "gen_s": 0.06325709899999765,
+    "total_s": 0.5398222700000588,
+    "symbolic_instr_gen": 3258,
+    "classes_covered_wrong": 0,
+    "root_sets": 0,
+    "peak_mb": 3.020069
+   },
+   "A_prefix": {
+    "check_s": 0.4765651710000611,
+    "certificate_bytes": 349727,
+    "symbolic_instr_check": 3258,
+    "expensive_analyses": 180,
+    "gen_s": 0.05754236099994614,
+    "total_s": 0.5341075320000073,
+    "symbolic_instr_gen": 1728,
+    "classes_covered_wrong": 0,
+    "root_sets": 0
+   },
+   "B": {
+    "check_s": 0.4765651710000611,
+    "certificate_bytes": 349727,
+    "symbolic_instr_check": 3258,
+    "expensive_analyses": 180,
+    "gen_s": 0.06325709899999765,
+    "total_s": 0.5398222700000588,
+    "symbolic_instr_gen": 3258,
+    "classes_covered_wrong": 0,
+    "classes_L4": 0,
+    "root_sets": 0
+   },
+   "speedup_total_vs_A": 1.146387027671477,
+   "speedup_total_vs_A_prefix": 1.1342509935100862
+  },
+  {
+   "program": "masked check, nonlinear (adversarial)",
+   "name": "masked_check_nl",
+   "sha256": "5b3d93d3844698296e84c7e1969fe0c2bf3aadb63d1c436e3599ed7e5ee24f95",
+   "field": "GF(256)",
+   "instructions": 11,
+   "faults": 110,
+   "C": {
+    "gen_s": 0.04574438300005568,
+    "check_s": 0.000548966999986078,
+    "total_s": 0.046293350000041755,
+    "certificate_bytes": 27171,
+    "templates": 4,
+    "classes_covered_wrong": 0,
+    "classes_all": 12,
+    "modes": {
+     "synth": 10,
+     "no-reach": 97,
+     "delta-zero": 3
+    },
+    "work_gen": {
+     "forward_instr": 11,
+     "backward_instr": 11,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 47,
+     "template_analyses": 4,
+     "baseline_classifications": 10
+    },
+    "work_check": {
+     "templates_checked": 3,
+     "per_fault_poly_mul": 20,
+     "per_fault_executions": 0,
+     "template_faults": 0
+    },
+    "symbolic_instr_gen": 22,
+    "symbolic_instr_check": 22,
+    "expensive_analyses": 14,
+    "peak_mb": 0.213669,
+    "counts": {
+     "sites": 110,
+     "benign": 73,
+     "covered": 27,
+     "covered_wrong_possible": 0,
+     "bypass": 0,
+     "unknown": 10
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 110,
+    "benign": 73,
+    "covered": 27,
+    "covered_wrong_possible": 0,
+    "bypass": 0,
+    "unknown": 10
+   },
+   "A": {
+    "check_s": 0.0021094280000397703,
+    "certificate_bytes": 105330,
+    "symbolic_instr_check": 1221,
+    "expensive_analyses": 110,
+    "gen_s": 0.05079707100003361,
+    "total_s": 0.05290649900007338,
+    "symbolic_instr_gen": 1221,
+    "classes_covered_wrong": 0,
+    "root_sets": 0,
+    "peak_mb": 0.673452
+   },
+   "A_prefix": {
+    "check_s": 0.0021094280000397703,
+    "certificate_bytes": 105330,
+    "symbolic_instr_check": 1221,
+    "expensive_analyses": 110,
+    "gen_s": 0.04805657500003235,
+    "total_s": 0.050166003000072124,
+    "symbolic_instr_gen": 671,
+    "classes_covered_wrong": 0,
+    "root_sets": 0
+   },
+   "B": {
+    "check_s": 0.0021094280000397703,
+    "certificate_bytes": 105330,
+    "symbolic_instr_check": 1221,
+    "expensive_analyses": 110,
+    "gen_s": 0.05079707100003361,
+    "total_s": 0.05290649900007338,
+    "symbolic_instr_gen": 1221,
+    "classes_covered_wrong": 0,
+    "classes_L4": 0,
+    "root_sets": 0
+   },
+   "speedup_total_vs_A": 1.1428531095724475,
+   "speedup_total_vs_A_prefix": 1.0836546285811435
+  },
+  {
+   "program": "nonlinear trap (adversarial)",
+   "name": "nonlinear_trap",
+   "sha256": "dc8179aeb2916f166ec0d3399df8244fc087ba69e834a033b5aa73ef174659bb",
+   "field": "GF(256)",
+   "instructions": 6,
+   "faults": 60,
+   "C": {
+    "gen_s": 0.0023959919999470003,
+    "check_s": 0.01120198800003891,
+    "total_s": 0.01359797999998591,
+    "certificate_bytes": 16002,
+    "templates": 2,
+    "classes_covered_wrong": 0,
+    "classes_all": 12,
+    "modes": {
+     "synth": 10,
+     "no-reach": 48,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 6,
+     "backward_instr": 6,
+     "perturbed_instr": 6,
+     "per_fault_poly_mul": 48,
+     "template_analyses": 2,
+     "baseline_classifications": 10
+    },
+    "work_check": {
+     "templates_checked": 2,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 10,
+     "template_faults": 0
+    },
+    "symbolic_instr_gen": 18,
+    "symbolic_instr_check": 72,
+    "expensive_analyses": 12,
+    "peak_mb": 0.109221,
+    "counts": {
+     "sites": 60,
+     "benign": 2,
+     "covered": 48,
+     "covered_wrong_possible": 0,
+     "bypass": 10,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 60,
+    "benign": 2,
+    "covered": 48,
+    "covered_wrong_possible": 0,
+    "bypass": 10,
+    "unknown": 0
+   },
+   "A": {
+    "check_s": 0.011795741000014459,
+    "certificate_bytes": 60826,
+    "symbolic_instr_check": 366,
+    "expensive_analyses": 60,
+    "gen_s": 0.00418570199997248,
+    "total_s": 0.01598144299998694,
+    "symbolic_instr_gen": 366,
+    "classes_covered_wrong": 0,
+    "root_sets": 0,
+    "peak_mb": 0.385569
+   },
+   "A_prefix": {
+    "check_s": 0.011795741000014459,
+    "certificate_bytes": 60826,
+    "symbolic_instr_check": 366,
+    "expensive_analyses": 60,
+    "gen_s": 0.003583415999969475,
+    "total_s": 0.015379156999983934,
+    "symbolic_instr_gen": 216,
+    "classes_covered_wrong": 0,
+    "root_sets": 0
+   },
+   "B": {
+    "check_s": 0.011795741000014459,
+    "certificate_bytes": 60826,
+    "symbolic_instr_check": 366,
+    "expensive_analyses": 60,
+    "gen_s": 0.00418570199997248,
+    "total_s": 0.01598144299998694,
+    "symbolic_instr_gen": 366,
+    "classes_covered_wrong": 0,
+    "classes_L4": 0,
+    "root_sets": 0
+   },
+   "speedup_total_vs_A": 1.1752806666875153,
+   "speedup_total_vs_A_prefix": 1.1309883526817859
+  },
+  {
+   "program": "square check (adversarial)",
+   "name": "square_check",
+   "sha256": "104bf78045365fa07fde7e6057905899bcb27350a6a60c268c9a7f8d4ba160cc",
+   "field": "GF(256)",
+   "instructions": 6,
+   "faults": 60,
+   "C": {
+    "gen_s": 0.14173443799995766,
+    "check_s": 0.0012298300000566087,
+    "total_s": 0.14296426800001427,
+    "certificate_bytes": 17068,
+    "templates": 2,
+    "classes_covered_wrong": 1,
+    "classes_all": 5,
+    "modes": {
+     "synth": 20,
+     "no-reach": 37,
+     "delta-zero": 3
+    },
+    "work_gen": {
+     "forward_instr": 6,
+     "backward_instr": 6,
+     "perturbed_instr": 12,
+     "per_fault_poly_mul": 37,
+     "template_analyses": 2,
+     "baseline_classifications": 20
+    },
+    "work_check": {
+     "templates_checked": 2,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 20,
+     "template_faults": 0
+    },
+    "symbolic_instr_gen": 24,
+    "symbolic_instr_check": 132,
+    "expensive_analyses": 22,
+    "peak_mb": 0.144467,
+    "counts": {
+     "sites": 60,
+     "benign": 3,
+     "covered": 55,
+     "covered_wrong_possible": 8,
+     "bypass": 0,
+     "unknown": 2
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 60,
+    "benign": 3,
+    "covered": 55,
+    "covered_wrong_possible": 8,
+    "bypass": 0,
+    "unknown": 2
+   },
+   "A": {
+    "check_s": 0.001525338000078591,
+    "certificate_bytes": 60603,
+    "symbolic_instr_check": 366,
+    "expensive_analyses": 60,
+    "gen_s": 0.11568660900002214,
+    "total_s": 0.11721194700010074,
+    "symbolic_instr_gen": 366,
+    "classes_covered_wrong": 8,
+    "root_sets": 8,
+    "peak_mb": 0.397515
+   },
+   "A_prefix": {
+    "check_s": 0.001525338000078591,
+    "certificate_bytes": 60603,
+    "symbolic_instr_check": 366,
+    "expensive_analyses": 60,
+    "gen_s": 0.10871979299997747,
+    "total_s": 0.11024513100005606,
+    "symbolic_instr_gen": 216,
+    "classes_covered_wrong": 8,
+    "root_sets": 8
+   },
+   "B": {
+    "check_s": 0.001525338000078591,
+    "certificate_bytes": 60603,
+    "symbolic_instr_check": 366,
+    "expensive_analyses": 60,
+    "gen_s": 0.11568660900002214,
+    "total_s": 0.11721194700010074,
+    "symbolic_instr_gen": 366,
+    "classes_covered_wrong": 1,
+    "classes_L4": 1,
+    "root_sets": 1
+   },
+   "speedup_total_vs_A": 0.8198688290425761,
+   "speedup_total_vs_A_prefix": 0.7711376593768525
+  },
+  {
+   "program": "cyclic mul n=17 (C only)",
+   "name": "cyclic_mul_n17",
+   "sha256": "355cd7326adbe1eb954ff32b97da01ea2ec084e5ed0dbb997a7dd5158b949e39",
+   "field": "GF(256)",
+   "instructions": 748,
+   "faults": 7480,
+   "C": {
+    "gen_s": 0.2007459309999149,
+    "check_s": 0.5076810489999843,
+    "total_s": 0.7084269799998992,
+    "certificate_bytes": 1780849,
+    "templates": 117,
+    "classes_covered_wrong": 33,
+    "classes_all": 35,
+    "modes": {
+     "template": 5950,
+     "no-reach": 1528,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 748,
+     "backward_instr": 748,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 1528,
+     "template_analyses": 117,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 117,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 5950
+    },
+    "symbolic_instr_gen": 1496,
+    "symbolic_instr_check": 1496,
+    "expensive_analyses": 117,
+    "peak_mb": 14.86957,
+    "counts": {
+     "sites": 7480,
+     "benign": 2,
+     "covered": 7478,
+     "covered_wrong_possible": 5950,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 7480,
+    "benign": 2,
+    "covered": 7478,
+    "covered_wrong_possible": 5950,
+    "bypass": 0,
+    "unknown": 0
+   }
+  },
+  {
+   "program": "cyclic mul n=23 (C only)",
+   "name": "cyclic_mul_n23",
+   "sha256": "0c3eb88bd3200f6574d57c5ace1a0098ae17c71b7f0cd557945d775d8f13bdd7",
+   "field": "GF(256)",
+   "instructions": 1288,
+   "faults": 12880,
+   "C": {
+    "gen_s": 0.5262958429999571,
+    "check_s": 1.8641292009999688,
+    "total_s": 2.390425043999926,
+    "certificate_bytes": 3147511,
+    "templates": 159,
+    "classes_covered_wrong": 45,
+    "classes_all": 47,
+    "modes": {
+     "template": 10810,
+     "no-reach": 2068,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 1288,
+     "backward_instr": 1288,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 2068,
+     "template_analyses": 159,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 159,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 10810
+    },
+    "symbolic_instr_gen": 2576,
+    "symbolic_instr_check": 2576,
+    "expensive_analyses": 159,
+    "peak_mb": 27.404082,
+    "counts": {
+     "sites": 12880,
+     "benign": 2,
+     "covered": 12878,
+     "covered_wrong_possible": 10810,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 12880,
+    "benign": 2,
+    "covered": 12878,
+    "covered_wrong_possible": 10810,
+    "bypass": 0,
+    "unknown": 0
+   }
+  },
+  {
+   "program": "cyclic mul n=31 (C only)",
+   "name": "cyclic_mul_n31",
+   "sha256": "022bbbefe589e426acb7fb1a434a8638758214172b671ce7b21bd4dd25649223",
+   "field": "GF(256)",
+   "instructions": 2232,
+   "faults": 22320,
+   "C": {
+    "gen_s": 1.3119030459999976,
+    "check_s": 7.230833385999858,
+    "total_s": 8.542736431999856,
+    "certificate_bytes": 5646635,
+    "templates": 215,
+    "classes_covered_wrong": 61,
+    "classes_all": 63,
+    "modes": {
+     "template": 19530,
+     "no-reach": 2788,
+     "delta-zero": 2
+    },
+    "work_gen": {
+     "forward_instr": 2232,
+     "backward_instr": 2232,
+     "perturbed_instr": 0,
+     "per_fault_poly_mul": 2788,
+     "template_analyses": 215,
+     "baseline_classifications": 0
+    },
+    "work_check": {
+     "templates_checked": 215,
+     "per_fault_poly_mul": 0,
+     "per_fault_executions": 0,
+     "template_faults": 19530
+    },
+    "symbolic_instr_gen": 4464,
+    "symbolic_instr_check": 4464,
+    "expensive_analyses": 215,
+    "peak_mb": 57.219833,
+    "counts": {
+     "sites": 22320,
+     "benign": 2,
+     "covered": 22318,
+     "covered_wrong_possible": 19530,
+     "bypass": 0,
+     "unknown": 0
+    },
+    "unsound_or_rejected": 0
+   },
+   "counts": {
+    "sites": 22320,
+    "benign": 2,
+    "covered": 22318,
+    "covered_wrong_possible": 19530,
+    "bypass": 0,
+    "unknown": 0
+   }
+  }
+ ]
+}

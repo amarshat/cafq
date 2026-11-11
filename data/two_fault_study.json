@@ -1,0 +1,213 @@
+[
+ {
+  "program": "karatsuba 2x2",
+  "name": "polymul_karatsuba2",
+  "sha256": "d53f27d74d97415d4ca2293ecd7d9cfb3fc257ee5e3152a95ccae2ee8aa5f594",
+  "data_faults": 90,
+  "checker_faults": 130,
+  "pairs": 11700,
+  "pair_verdicts": {
+   "covered": 6659,
+   "bypass": 3444,
+   "unknown": 1597,
+   "bypass-identically-undetected": 268
+  },
+  "checker_faults_single_fault_labels": {
+   "covered-no-wrong": 128,
+   "benign": 2
+  },
+  "checker_faults_disabling_all_data_faults": 2,
+  "checker_faults_enabling_some_bypass": 126,
+  "checker_faults_causing_some_unknown": 80,
+  "checker_faults_only_weakening_bounds": 0,
+  "checker_faults_harmless_for_every_data_fault": 0,
+  "single_labels_of_bypass_enabling_checker_faults": {
+   "covered-no-wrong": 124,
+   "benign": 2
+  },
+  "max_bound_increase": 2,
+  "examples_total_disable": [
+   {
+    "site": "skip@21",
+    "instr": [
+     "add",
+     "disc",
+     "eab",
+     "ep"
+    ]
+   },
+   {
+    "site": "zero@21",
+    "instr": [
+     "add",
+     "disc",
+     "eab",
+     "ep"
+    ]
+   }
+  ],
+  "structural_crosscheck_pairs": 2340,
+  "structural_crosscheck_mismatches": 0,
+  "structural_crosscheck_bypass_vs_unknown": 16,
+  "checker_faults_generic_disable": 2,
+  "seconds": 13.699091459000101
+ },
+ {
+  "program": "schoolbook n=2",
+  "name": "polymul_schoolbook_n2",
+  "sha256": "272c73000e283912e19b823bb52cb608a9446b8339fc785e9a23a98f483a0485",
+  "data_faults": 80,
+  "checker_faults": 130,
+  "pairs": 10400,
+  "pair_verdicts": {
+   "covered": 5842,
+   "unknown": 1353,
+   "bypass": 3205,
+   "bypass-identically-undetected": 304
+  },
+  "checker_faults_single_fault_labels": {
+   "covered-no-wrong": 128,
+   "benign": 2
+  },
+  "checker_faults_disabling_all_data_faults": 2,
+  "checker_faults_enabling_some_bypass": 122,
+  "checker_faults_causing_some_unknown": 86,
+  "checker_faults_only_weakening_bounds": 4,
+  "checker_faults_harmless_for_every_data_fault": 0,
+  "single_labels_of_bypass_enabling_checker_faults": {
+   "covered-no-wrong": 120,
+   "benign": 2
+  },
+  "max_bound_increase": 2,
+  "examples_total_disable": [
+   {
+    "site": "skip@20",
+    "instr": [
+     "add",
+     "disc",
+     "eab",
+     "ep"
+    ]
+   },
+   {
+    "site": "zero@20",
+    "instr": [
+     "add",
+     "disc",
+     "eab",
+     "ep"
+    ]
+   }
+  ],
+  "structural_crosscheck_pairs": 2080,
+  "structural_crosscheck_mismatches": 0,
+  "structural_crosscheck_bypass_vs_unknown": 23,
+  "checker_faults_generic_disable": 2,
+  "seconds": 10.0862534339999
+ },
+ {
+  "program": "cyclic mul n=2",
+  "name": "cyclic_mul_n2",
+  "sha256": "0fc146e4279ea7920512f46453232de21b29038893906617de9eb440380f2b4c",
+  "data_faults": 100,
+  "checker_faults": 180,
+  "pairs": 18000,
+  "pair_verdicts": {
+   "covered": 10896,
+   "bypass": 5307,
+   "bypass-identically-undetected": 384,
+   "unknown": 1797
+  },
+  "checker_faults_single_fault_labels": {
+   "covered-no-wrong": 178,
+   "benign": 2
+  },
+  "checker_faults_disabling_all_data_faults": 2,
+  "checker_faults_enabling_some_bypass": 160,
+  "checker_faults_causing_some_unknown": 126,
+  "checker_faults_only_weakening_bounds": 16,
+  "checker_faults_harmless_for_every_data_fault": 0,
+  "single_labels_of_bypass_enabling_checker_faults": {
+   "covered-no-wrong": 158,
+   "benign": 2
+  },
+  "max_bound_increase": 2,
+  "examples_total_disable": [
+   {
+    "site": "skip@27",
+    "instr": [
+     "add",
+     "disc",
+     "lhs",
+     "rhs"
+    ]
+   },
+   {
+    "site": "zero@27",
+    "instr": [
+     "add",
+     "disc",
+     "lhs",
+     "rhs"
+    ]
+   }
+  ],
+  "structural_crosscheck_pairs": 3600,
+  "structural_crosscheck_mismatches": 0,
+  "structural_crosscheck_bypass_vs_unknown": 42,
+  "checker_faults_generic_disable": 2,
+  "seconds": 16.314416170000186
+ },
+ {
+  "program": "butterfly 4",
+  "name": "butterfly4",
+  "sha256": "976f4f338f4ed3843e440856cde1b88faa6b1f52d1828fceb94c4c3dc62f6af4",
+  "data_faults": 150,
+  "checker_faults": 400,
+  "pairs": 60000,
+  "pair_verdicts": {
+   "covered": 56201,
+   "bypass": 3799,
+   "bypass-identically-undetected": 406
+  },
+  "checker_faults_single_fault_labels": {
+   "covered-no-wrong": 396,
+   "benign": 4
+  },
+  "checker_faults_disabling_all_data_faults": 2,
+  "checker_faults_enabling_some_bypass": 125,
+  "checker_faults_causing_some_unknown": 0,
+  "checker_faults_only_weakening_bounds": 273,
+  "checker_faults_harmless_for_every_data_fault": 2,
+  "single_labels_of_bypass_enabling_checker_faults": {
+   "covered-no-wrong": 123,
+   "benign": 2
+  },
+  "max_bound_increase": 2,
+  "examples_total_disable": [
+   {
+    "site": "skip@54",
+    "instr": [
+     "add",
+     "disc",
+     "lhs",
+     "rhs"
+    ]
+   },
+   {
+    "site": "zero@54",
+    "instr": [
+     "add",
+     "disc",
+     "lhs",
+     "rhs"
+    ]
+   }
+  ],
+  "structural_crosscheck_pairs": 12000,
+  "structural_crosscheck_mismatches": 0,
+  "structural_crosscheck_bypass_vs_unknown": 0,
+  "checker_faults_generic_disable": 2,
+  "seconds": 29.401538902000084
+ }
+]

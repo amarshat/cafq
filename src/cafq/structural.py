@@ -377,6 +377,16 @@ def generate(prog: Program, kinds=FAULT_KINDS, seed: int = 0) -> StructuralResul
             continue
         tid, T = template_for(i)
         r_free = R not in delta.variables()
+        # Reported, never bounded: is "the output is wrong" / "the alarm
+        # fires" a function of the (possibly secret) state?  Exact for the
+        # product delta*J whenever one factor is a nonzero constant.
+        cert["flags"] = {
+            "effect_depends_on_state": any(not p.is_zero() for p in P.jo[i]) and (
+                not delta.is_const() or any(not p.is_const() for p in P.jo[i])),
+            "status_depends_on_state": (not P.jd[i].is_zero()) and (
+                not delta.is_const()
+                or any(not c.is_const() for c in P.jd[i].coeffs_in(R).values())),
+        }
         if T["kind"] == "no-reach" and all(w.is_zero() for w in ref.incons):
             cert["mode"], cert["template"] = "no-reach", tid
             if P.jd[i].is_zero() or prod(delta, P.jd[i]).is_zero():
