@@ -10,7 +10,7 @@ Not GO. Not STOP.
 * **Why not STOP.** The stop condition "structural class membership requires
   essentially the same work as individual symbolic fault verification" is
   false on the kernels the method is meant for: total cost (generation plus
-  independent checking) drops by @@RANGE@@ with fault-by-fault identical
+  independent checking) drops by 9–128× with fault-by-fault identical
   verdicts, and the gap widens with program size.
 * **Why not GO.** All three GO conditions must hold. (1) Less total work: yes.
   (2) A nontrivial compositional theorem: **no** — compositionality here *is*
@@ -71,7 +71,24 @@ recorded there). GF(256). Total = generation + independent checking. A = per
 fault, full re-execution. A′ = per fault with prefix caching (the fairer
 comparator). B = A with post-hoc classes. C = structural.
 
-@@BENCH_TABLE@@
+| Program | Instrs | Faults | A total s | A′ total s | C total s | A/C | A′/C | Expensive analyses A → C | Sym. instr. executions A → C |
+|---|---|---|---|---|---|---|---|---|---|
+| schoolbook n=4 | 61 | 610 | 0.347 | 0.315 | 0.0146 | 23.7× | 21.6× | 610 → 22 | 74542 → 244 |
+| schoolbook n=6 | 117 | 1170 | 1.451 | 1.350 | 0.0238 | 60.9× | 56.7× | 1170 → 34 | 274014 → 468 |
+| schoolbook n=8 | 189 | 1890 | 4.632 | 4.176 | 0.0560 | 82.7× | 74.5× | 1890 → 46 | 714798 → 756 |
+| karatsuba 2x2 | 22 | 220 | 0.052 | 0.047 | 0.0051 | 10.2× | 9.1× | 220 → 14 | 9724 → 88 |
+| butterfly 4 | 55 | 550 | 0.259 | 0.223 | 0.0142 | 18.3× | 15.7× | 550 → 30 | 60610 → 220 |
+| cyclic mul n=5 | 100 | 1000 | 0.855 | 0.700 | 0.0234 | 36.5× | 29.9× | 1000 → 33 | 200200 → 400 |
+| cyclic mul n=7 | 168 | 1680 | 2.755 | 2.403 | 0.0486 | 56.7× | 49.4× | 1680 → 47 | 564816 → 672 |
+| cyclic mul n=11 | 352 | 3520 | 16.557 | 14.222 | 0.1292 | 128.1× | 110.1× | 3520 → 75 | 2478784 → 1408 |
+| cyclic mul n=5, tautological check | 98 | 980 | 7.810 | 7.724 | 0.0222 | 352.5× | 348.6× | 980 → 28 | 192276 → 392 |
+| AR discrepancy n=6 (adversarial input) | 18 | 180 | 0.530 | 0.528 | 0.5032 | 1.1× | 1.0× | 180 → 186 | 6516 → 72 |
+| masked check, nonlinear (adversarial) | 11 | 110 | 0.052 | 0.050 | 0.0501 | 1.0× | 1.0× | 110 → 14 | 2442 → 44 |
+| nonlinear trap (adversarial) | 6 | 60 | 0.015 | 0.015 | 0.0133 | 1.2× | 1.1× | 60 → 12 | 732 → 90 |
+| square check (adversarial) | 6 | 60 | 0.164 | 0.162 | 0.1464 | 1.1× | 1.1× | 60 → 22 | 732 → 156 |
+| cyclic mul n=17 (C only) | 748 | 7480 | not run | not run | 0.4143 | – | – | – → 117 | – → 2992 |
+| cyclic mul n=23 (C only) | 1288 | 12880 | not run | not run | 0.8435 | – | – | – → 159 | – → 5152 |
+| cyclic mul n=31 (C only) | 2232 | 22320 | not run | not run | 2.4170 | – | – | – → 215 | – → 8928 |
 
 Reading:
 
@@ -82,8 +99,8 @@ Reading:
 * **Where it does not.** The adversarial rows. The AR discrepancy circuit is
   not homogeneous (every fault still needs its own classification and its
   bypass replayed concretely); the nonlinear circuits need per-site runs and
-  per-fault classification. There C is within noise of A, and on
-  `square check` slightly slower. These rows were not removed.
+  per-fault classification. There C is within about 20 % of A (ratios 1.0–1.2).
+  These rows were not removed.
 * **A failure that was fixed, on the record.** The tautological-fold kernel
   first showed no meaningful gain over the baseline, because its 500 bypasses
   were searched and replayed one at a time (timing of that interim run was
@@ -91,16 +108,17 @@ Reading:
   Theorem S3) replaced that by a point evaluation.
 * **Unsound merges: 0. Unclassified faults: 0** beyond the `unknown`s the
   baseline also reports (same faults, same count).
-* **Certificates** are 4–11× smaller; peak memory 5–27× lower on the kernels.
+* **Certificates** are 4–8× smaller; peak memory 4–22× lower on the kernels.
 * **Not measured:** anything above about 2,200 instructions; any real HQC
   parameter (n = 17,669 is four orders of magnitude more instructions than
   the largest row); any field larger than GF(256).
 
 Complexity (theory §8): A costs `Θ(m·n²)` symbolic instruction executions and
 `F` expensive analyses; C costs `2n` and `T` (distinct templates), plus a
-bit-set pass and `O(1)` polynomial operations per fault. The checker's cost
-for C grows faster than its generator's on the largest rows; it is dominated
-by per-fault bookkeeping in Python, not by symbolic work.
+bit-set pass and `O(1)` polynomial operations per fault. Wall-clock for C is
+nevertheless superlinear on the largest rows (0.41 s at 748 instructions,
+2.42 s at 2,232), mostly in the generator; the cause (polynomial sizes,
+bit-set width, per-fault bookkeeping) was not profiled.
 
 ## 4. What the challenges to the model showed
 
