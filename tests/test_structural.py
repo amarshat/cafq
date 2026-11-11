@@ -338,3 +338,22 @@ def test_memory_model_predicts_the_compiled_kernel_bypasses():
     assert res.counts()["unknown"] == 0
     assert all(c["classification"] != "bypass" for c in res.faults
                if prog.instrs[c["fault"]["site"]].region in ("data", "check"))
+
+
+def test_COUNTEREXAMPLE_unit_content_classes_are_not_the_coarsest_quotient():
+    """Theory C4. Equal (k, h) is sufficient for equal undetected sets, not
+    necessary: over GF(4), h1 = 1 + R and h2 = (1 + R)(R^2 + R + w), with
+    R^2 + R + w irreducible (trace(w) = 1), have the same root set {1}. Two
+    sites with these templates are detection-equivalent yet land in
+    different unit-content classes."""
+    F = get_field(2)
+    w = 2
+    R = Poly.var(F, "R")
+    one = Poly.const(F, 1)
+    h1 = one + R
+    quad = R * R + R + Poly.const(F, w)
+    h2 = (h1 * quad).reduce()
+    roots = lambda h: {r for r in range(4) if h.evaluate({"R": r}) == 0}
+    assert roots(quad) == set()
+    assert roots(h1) == roots(h2) == {1}
+    assert h1 != h2

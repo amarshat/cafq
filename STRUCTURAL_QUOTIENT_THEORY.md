@@ -296,6 +296,21 @@ per fault, whether effectiveness or alarm status depends on the state
 (`effect_depends_on_state`, `status_depends_on_state`); these are reported
 separately and never bounded.
 
+**Counterexample C4 (the unit-content quotient is not the coarsest sound
+one).** Equal `(k, h)` is sufficient for equal undetected sets, not necessary.
+Over GF(4) with `ω² = ω + 1`: `h₁ = 1 + R` and
+`h₂ = (1 + R)(R² + R + ω)` have the same root set `{1}`, because
+`R² + R + ω` is irreducible (trace of `ω` is 1). Two sites with these
+templates are detection-equivalent and sit in different classes. For
+constant-`h` templates the coarsest sound quotient is by the root set `Z`
+itself, which the checker already computes; merging by `Z` is sound and was
+not implemented. For state-dependent `h` the coarsest quotient is "same root
+set for every wrong state", for which no efficient test is offered.
+*Evidence:* `test_COUNTEREXAMPLE_unit_content_classes_are_not_the_coarsest_quotient`.
+
+So the algorithm is sound and accounts for every fault, but it is **not
+canonical**: it may produce more classes than necessary.
+
 ## 8. Complexity
 
 Parameters: `n` instructions; `F = (m+2)·n` faults; `o` outputs; `T` distinct
