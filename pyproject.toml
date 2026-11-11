@@ -1,0 +1,14 @@
+[project]
+name = "cafq"
+version = "0.1.0"
+description = "Research-only: Algebraic Rejection under test and Certified Algebraic Fault Quotients (CAFQ)"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+# Versions are the ones actually installed and used to produce data/ transcripts.
+dev = ["pytest==9.2.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
