@@ -16,6 +16,14 @@
 - `src/cafq/analyzer.py` + `checker.py` are the preserved per-fault BASELINE.
   Do not change their behaviour or the fault model to improve a comparison.
   Any refactor must leave certificates byte-identical.
+- Both trusted checkers validate the program first (irreducible modulus,
+  read-only inputs and challenge, no `@` names). Never bypass or weaken
+  `_validate_program`; a theorem's hypotheses are checked, not assumed.
+- `src/cafq/binquot.py` is an untrusted research prototype. Its instruction
+  model is a kill WHITELIST: a register or flag write kills the previous
+  definition only if listed. Any change to it must be re-run against the
+  exhaustive ground truth (`tools/binary_quotient_study.py`); the required
+  result is zero unsound predictions, not higher coverage.
 - A structural shortcut is only valid at fault-linear sites (taint check).
   The counterexample circuits `square_check` and `nonlinear_trap` guard this.
 - A class certificate is a statement about detection conditional on a wrong
@@ -36,4 +44,6 @@ python tools/run_benchmarks.py
 python tools/run_structural_benchmarks.py   # A / A' / B / C comparison, ~8 min
 python tools/two_fault_study.py             # ~70 s
 python tools/compiled_kernel_study.py       # needs gcc, clang, unicorn; ~1 min
+python tools/binary_quotient_study.py       # needs gcc, clang, unicorn, capstone; ~3 min
+sh proofs/coq/check.sh                      # needs Coq 8.18 + mathcomp 2.1
 ```

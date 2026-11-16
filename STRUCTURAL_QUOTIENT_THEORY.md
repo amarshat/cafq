@@ -1,7 +1,11 @@
 # Structural Fault Quotients — theory
 
 Status: definitions, algorithm, theorems with written proofs, counterexamples,
-complexity. Proofs are **not machine-checked**. Every theorem's instances are
+complexity. **Machine-checked in Coq (no axioms): Lemma L, Theorem S1, Lemma R,
+and the root-set core of Theorem S2** (`proofs/coq/`, `proofs/README.md` lists
+exactly what is and is not covered). S3–S5, the Region Theorem of §12, the
+witness step and the soundness of the Python checkers are **not**
+machine-checked. Every theorem's instances are
 tested against full symbolic re-execution and, on small fields, against brute
 force over every state, challenge and fault (`tests/test_structural.py`).
 
@@ -397,3 +401,159 @@ could and could not be checked): computing detection-equivalence classes for a
 δ-agnostic class theorem (S2), an algebraic criterion for tautological checks
 (S3), exact per-class non-detection probabilities, and certificates whose
 class membership is derived by an independent checker rather than asserted.
+
+---
+
+## 12. Transport to compiled code: the Region Theorem
+
+Added 16 Nov 2026. Level: one dynamic execution trace of one binary on one
+ISA (x86-64 here), single instruction-skip faults. Everything in this section
+is conditional on assumptions A1–A3, which are **tested, not proved**.
+
+### 12.1 Setting
+
+Fix a binary, a state `x` and the fault-free dynamic trace `I_0 … I_{N−1}`
+(assumed independent of the data; checked). A *location* is a register or a
+memory byte. A *definition* is a pair `(k, ℓ)`: instruction `k` writes
+location `ℓ`. The **dynamic def-use graph** `G` has the definitions as nodes,
+an edge `(k', ℓ') → (k, ℓ)` when `I_k` reads `ℓ'` and `(k', ℓ')` is the
+reaching definition, and a sink `OBS` fed by the final definitions of the
+observed bytes (outputs and the discrepancy).
+
+A write that may leave part of the old content in place — an 8/16-bit
+register write, a conditional move, a partial flag update — is modelled as
+also *reading* the old content. Only whitelisted full overwrites kill.
+
+A definition has a **bad use** if some instruction uses it to form a memory
+address or to steer control flow.
+
+Let `M` be a memory-aware IR program for the same computation (explicit load
+and store sites), with structural site certificates.
+
+A definition `E = (e, ℓ)` is a **realisation point of IR site `i`** if, for
+every byte value `v'`, replacing the low byte of `ℓ` by `v'` right after
+`I_e` makes the final observation equal to the IR observation with the value
+of site `i` replaced by `v'`, and the remaining bits of `ℓ` do not influence
+the observation.
+
+### 12.2 Assumptions
+
+* **A1 (graph soundness).** Every dependence of an instruction's effect on a
+  location is an edge of `G`, and every address/control use is marked.
+* **A2 (realisation).** The definitions used as realisation points are
+  realisation points in the sense above, for all values `v'`.
+* **A3 (fault semantics).** Skipping `I_k` leaves every location `I_k` would
+  have written with its previous content and changes nothing else.
+
+### 12.3 Theorem
+
+**Region Theorem.** Let `k` be a dynamic instruction, `D_k` its definitions
+that reach `OBS`. Suppose
+
+1. no definition of `I_k` reaches a bad use;
+2. a realisation point `E` of IR site `i` post-dominates every node of `D_k`
+   with respect to `OBS`;
+3. `E`, and the definitions overwritten by `I_k`, are not reachable from the
+   challenge input.
+
+Then under A1–A3 the skip of `I_k` produces exactly the observation of the IR
+program `M` with the value of site `i` replaced by `v_i + δ` for some `δ`
+that does not depend on the challenge. Consequently the site certificate of
+`i` applies verbatim:
+
+* template site: either the output is unchanged, or it is wrong for every
+  challenge and the undetected set is exactly `roots(Jd_i(x, ·))`;
+* checker-blind site (`Jd_i = 0`, Theorem S3): either unchanged, or wrong and
+  undetected for **every** challenge;
+* site that does not reach an output: the output is never wrong.
+
+If `D_k` is empty the skip has no effect on the observation; if no definition
+of `I_k` reaches an output byte the output is never wrong.
+
+*Proof.* By A3 the faulted run differs from the fault-free run first in the
+contents of the locations `I_k` writes. By (1) and A1 no later address or
+branch decision changes, so the same instructions execute on the same
+locations and the difference propagates only along edges of `G`. By (2) every
+path from those definitions to `OBS` passes through `E`, so the final
+observation is a function of the fault-free state and of the content of `ℓ`
+after `I_e`. By A2 it is the IR observation with site `i` holding the low
+byte `v'` of that content; put `δ = v' − v_i`. `v'` is computed from
+definitions that are ancestors of `E` and from the stale contents left by the
+skip; by (3) none depends on the challenge, hence neither does `δ`. Now
+Theorem S2 (or S3, or the no-reach rule) applies, because it holds for every
+challenge-independent error at the site. ∎
+
+The bridge is δ-agnosticism: the machine fault need not *be* any IR fault
+kind. It only has to be *some* error on one IR value.
+
+### 12.4 Algorithm and what it costs
+
+`src/cafq/binquot.py`: trace on a few training inputs; build `G`; pick
+candidate realisation points by value matching against the IR; **validate**
+each by injecting 10 errors plus an upper-bits probe for every challenge;
+compute post-dominators; classify each skip or report it *outside coverage*
+with the reason.
+
+Per-fault emulation costs `N · |challenges|` suffix runs. The quotient costs
+`(#candidates) · 11 · |challenges|` suffix runs plus a handful of traced runs.
+It wins only when the binary has many instructions per IR value.
+
+### 12.5 Evidence (`data/binary_quotient_study.md`)
+
+Same binaries, state, challenges and fault model as the per-fault ground
+truth; a prediction counts as unsound if the ground truth contradicts it.
+
+| Build | Dynamic instrs | Covered | of which assigned to an IR site | Unsound predictions | Complete bypasses: predicted checker-blind / outside / predicted safe |
+|---|---|---|---|---|---|
+| gcc 13.3.0 -O2 | 895 | 79.7 % | 236 | 0 | 7 / 0 / 0 |
+| clang 18.1.3 -O2 | 459 | 68.4 % | 44 | 0 | 5 / 2 / 0 |
+| gcc 13.3.0 -O0 | 1,372 | 78.9 % | 390 | 0 | 14 / 5 / 0 |
+
+Among covered skips that corrupt the output (139, 30 and 267 respectively)
+every one behaved exactly as predicted: the site's root set for template
+sites, all 256 challenges for checker-blind sites.
+
+Cost, same machine: per-fault emulation needed between 0.6× and 2.1× the
+suffix emulations of the quotient, and between 1.1× and 2.1× its wall-clock. **This is not a decisive
+cost reduction**, and on the vectorised build the quotient performed *more*
+emulations than the brute force.
+
+### 12.6 Counterexamples and limits
+
+**Counterexample C5 (A1 is not free: the disassembler's write set is not a
+kill set).** The first version took "written" to mean "overwritten". For
+`cmovne eax, ebp` the destination is listed as written only, although the old
+value survives when the condition is false. The graph lost an edge, a
+definition appeared to be post-dominated by an output store, and one skip in
+the clang build was predicted checker-blind while the ground truth showed it
+detected for 127 of 256 challenges. Found by the ground-truth comparison;
+fixed with an explicit kill whitelist; regression test
+`test_REGRESSION_conditional_move_does_not_kill_its_destination`.
+
+Lesson: A1 needs a formal ISA semantics, not a disassembler's operand
+annotations. Until then the Region Theorem's conclusions on a binary are
+exactly as trustworthy as that instruction model.
+
+**Counterexample C6 (fields, not rings).** With a reducible modulus the
+arithmetic is a ring with zero divisors and no root bound holds:
+`δ·r = 0` has two solutions `r` out of four over `GF(2)[x]/(x²+1)` for
+`δ = x+1`. The trusted checker accepted transplanted certificates over such
+a modulus until it was made to verify irreducibility
+(`tests/test_checker_field_validation.py`). Reported by external review.
+
+Limits of §12 as it stands:
+
+* **A2 is tested for 10 errors on one state.** It is translation validation
+  by testing, not a proof.
+* **One state.** Predictions and ground truth are both at one fixed state;
+  nothing is claimed for others.
+* **Coverage is 68–80 %.** Stack and control instructions, loop counters,
+  values that feed several IR sites before any single location holds them,
+  and everything inside vectorised code are outside.
+* **13–16 of 29 IR sites have no realisation point** in the -O2 binaries
+  (copies and Horner intermediates that never occupy a location of their
+  own); faults there are attributed to a neighbouring site or left outside.
+* **Skip faults only**, x86-64 only, emulated only. No ARM, no physical fault.
+* **Not a certificate.** There is no independent checker for the binary
+  quotient; its output is a prediction table that was compared with brute
+  force, nothing more.

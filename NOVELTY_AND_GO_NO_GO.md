@@ -1,5 +1,12 @@
 # Novelty and go / no-go — structural fault quotients
 
+> **Update, 16 Nov 2026 — after external review of revision `c63ccbd`.**
+> The decision stays **PIVOT**, with the objective narrowed as the review
+> proposed: *can algebraic fault guarantees be transported soundly from the
+> algorithm to its compiled execution?* Section 10 at the end reports what
+> this cycle established. Sections 1–9 are the 11 Nov assessment, unchanged
+> except where marked.
+
 Date: 2026-11-11. Written to be argued with. Evidence files are named for
 every number; nothing here is an estimate.
 
@@ -336,3 +343,100 @@ thread; CPU and source revision are written into each data file. Compiler
 versions, flags and ELF SHA-256 digests are in
 `data/compiled_kernel_study.md`; the binaries and disassembly are in
 `data/compiled/`.
+
+---
+
+## 10. Cycle of 16 Nov 2026: response to external review
+
+### 10.1 What the review asked for and what was done
+
+| # | Review instruction | Status | Evidence |
+|---|---|---|---|
+| 1 | Fix the trusted checker: reject reducible moduli; audit metadata and field assumptions | **Done.** Defect reproduced first (both checkers accepted transplanted GF(4) certificates over all three reducible degree-2 moduli), then fixed. The audit added: `m` in 1..16, distinct inputs, challenge not an input, no writes to read-only registers, well-formed instructions, and `@`-prefixed names rejected (they would be mis-parsed as the structural checker's formal tags; no exploit was constructed, it is closed as a precaution) | `tests/test_checker_field_validation.py` (37 tests) |
+| 2 | Formalise the theorem in Lean or Isabelle | **Partly done, in Coq** (Lean's toolchain host was unreachable). Machine-checked without axioms: the fault-linear propagation identity, the taint criterion, equality of the reverse pass with the forward tangent, the undetected-set theorem over a field, class invariance, the root bound. **Not** formalised: the independence/probability statement, the witness step, the link to the Python code | `proofs/coq/`, `proofs/README.md` |
+| 3 | Memory-aware IR | **Done for one kernel**: explicit load and store sites. Address calculations and vectorised code are *not* modelled; they are detected and reported outside coverage | `karatsuba2_memory_model`, `src/cafq/binquot.py` |
+| 4 | Explicit source-to-binary fault relation; map or report outside coverage | **Done as a conditional theorem plus a tested relation.** Region Theorem (theory §12): a skip whose effects are post-dominated by a validated realisation point of an IR site, with no address/control use and no challenge dependence, *is* a challenge-independent error on that site. Everything else is reported outside coverage with a reason. The three assumptions are tested, not proved | theory §12 |
+| 5 | Decisive benchmark: per-fault binary analysis vs compiler-aware quotient | **Done; the result is not decisive in favour of the quotient.** See 10.2 | `data/binary_quotient_study.md` |
+| 6 | Realistic scale; HQC-style arithmetic; ARM Thumb-2 | **Not done.** No ARM toolchain was installed and no larger kernel was attempted. Nothing is claimed | — |
+| 7 | Challenge novelty again | **Partly.** The review's additional references are recorded as reviewer-reported; none could be fetched here | `PRIOR_ART_COLLISION_REPORT.md` §6 |
+
+The regression file attached to the review did not reach this session; an
+equivalent test was written from the review's description.
+
+Not independently confirmed here: the review's own re-timings (9.6×, 31×,
+40× on three kernels). They are consistent in direction with
+`data/structural_benchmarks.md`; the repository's 128× figure remains a
+single-machine measurement.
+
+### 10.2 The binary quotient: what the benchmark says
+
+Same three binaries, same state, all 256 challenges, single instruction
+skip; ground truth is exhaustive emulation of every skip.
+
+| Build | Dynamic instrs | Coverage | Unsound predictions | Bypasses predicted checker-blind / left outside / predicted safe | Per-fault s | Quotient s |
+|---|---|---|---|---|---|---|
+| gcc -O2 | 895 | 79.7 % | 0 | 7 / 0 / 0 | 8.3 | 4.3 |
+| clang -O2 | 459 | 68.4 % | 0 | 5 / 2 / 0 | 58.8 | 54.3 |
+| gcc -O0 | 1,372 | 78.9 % | 0 | 14 / 5 / 0 | 15.9 | 12.2 |
+
+* **Soundness on this evidence: yes.** No prediction was contradicted; no
+  complete bypass was predicted safe; 436 covered skips that corrupt the
+  output behaved exactly as their IR site certificate says.
+* **But one unsound prediction occurred during development** and is the most
+  instructive result of the cycle: a conditional move modelled as an
+  overwrite (C5). The ground-truth comparison caught it. Without that
+  comparison it would have shipped. A binary-level quotient is only as sound
+  as its instruction model, and a disassembler's operand annotations are not
+  such a model.
+* **Cost: no meaningful reduction.** 1.1–2.1× in wall-clock; on the
+  vectorised build the quotient ran more emulations than brute force. The
+  validation of realisation points by injection is the dominant cost.
+* **Coverage: 68–80 %.** A fifth to a third of single skips fall outside:
+  stack and control instructions, loop counters, vectorised code, and values
+  with no single realising location.
+
+Against the review's success criterion — "a rigorous refinement theorem *and*
+a substantial verification-cost reduction" — this cycle delivers a
+conditional theorem with clean experimental support and **no** substantial
+cost reduction. By that criterion it has **not** succeeded yet.
+
+### 10.3 What is and is not original after this cycle
+
+* The Region Theorem is a use of δ-agnosticism (S2) as a refinement bridge:
+  a machine fault need not correspond to any source-level fault, only to
+  *some* error on one abstract value. Post-dominance in a def-use graph is
+  textbook; fault-effect confinement to a single-exit region is the idea
+  behind inject-on-read and BEC-style pruning. What may be new is the
+  combination with an algebraic class certificate that is insensitive to the
+  error value. This is **unverified against compiler-security literature**,
+  none of which was read.
+* The observation that shared loads and unchecked stores defeat redundancy is
+  not new, as the review says. The contribution is that it is now *derived*
+  (`Jd = 0` at a load or store site) and *confirmed* on three binaries.
+
+### 10.4 Decision and next step
+
+**PIVOT stands; the narrowed objective is adopted.** The honest status of the
+narrowed objective is: sound on the evidence, conditional on an untrusted
+instruction model, not cheaper than brute force.
+
+The next experiment that could change this, in order:
+
+1. **Replace A1 by a real ISA semantics** for the instruction subset used
+   (or lift through an existing verified/validated lifter), so that the
+   Region Theorem's graph is not a disassembler heuristic. C5 shows this is
+   the weak point.
+2. **Remove the injection cost**: prove A2 once per realisation point by
+   symbolic execution of the suffix in the challenge, instead of 11 × 256
+   emulations. Kill test: quotient emulations must fall below 10 % of
+   per-fault emulations at equal coverage.
+3. **A kernel with many machine instructions per IR value** (table-free
+   bit-serial multipliers at realistic word sizes, or HQC-style carry-less
+   multiplication), where the ratio instructions-per-site makes the quotient
+   pay. Then ARM Thumb-2.
+4. Only then an independent checker for binary-level certificates.
+
+If (2) cannot bring the cost below brute force, the narrower publishable
+result is the one the review names: a measured account of how algebraic
+fault certificates fail across compilation, with a method that predicts the
+failures it can and declares the rest.

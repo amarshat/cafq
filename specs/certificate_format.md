@@ -42,3 +42,21 @@ and every class at every level is sound.
 
 Preconditions on states, multi-fault certificates, ISA-level sites, compiler
 metadata, and any claim about ineffective-fault leakage.
+
+
+## Program validation (both checkers, since 16 Nov 2026)
+
+Before any certificate is read the trusted checker validates the program
+description and refuses everything if it fails: `ir` is `toy-ir-v1`; `m` is
+an integer in 1..16; `modulus` is an **irreducible** polynomial of degree
+`m`; inputs are distinct valid names; the challenge is a valid name and not
+an input; no instruction writes an input or the challenge; every instruction
+is `[op, dst, a, b, region]` with a known op and operands of the right kind;
+no name starts with `@`.
+
+## Metadata the checker does not and cannot verify
+
+`fault_model`, `observation_model`, `challenge_model`, `compiler_and_flags`
+and `region` are descriptive. In particular a PASS does not establish that
+the challenge is in fact fresh, uniform, hidden and independent of the fault
+and state. That is an assumption of every probability statement.

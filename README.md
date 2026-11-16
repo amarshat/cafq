@@ -15,7 +15,9 @@ Two tracks, from the work package of 10 Nov 2026:
    separately (`reports/phase2_cafq_results.md`). The **structural quotient**
    derives the same verdicts from one forward and one reverse pass.
 
-**Current decision (11 Nov 2026): PIVOT.** See `NOVELTY_AND_GO_NO_GO.md`.
+**Current decision (16 Nov 2026): PIVOT, objective narrowed to transporting
+algebraic fault guarantees to compiled code.** See `NOVELTY_AND_GO_NO_GO.md`
+(§10 for the latest cycle).
 The structural quotient is sound and cuts total verification work by one to
 two orders of magnitude on fault-linear kernels, but its mathematical core is
 classical and its guarantees do not survive a second fault or compilation.
@@ -38,6 +40,8 @@ classical and its guarantees do not survive a second fault or compilation.
 | `src/toy/` | GF(2^8), discrepancy, toy FO / H-AR / DFAR KEM, fault hooks, attacks |
 | `src/cafq/analyzer.py`, `checker.py`, `baselines.py` | **Baseline**: per-fault symbolic analysis, post-hoc quotient, trusted checker, prefix-cached variant |
 | `src/cafq/structural.py`, `structural_checker.py` | **Structural quotient**: adjoint-based generator (untrusted) and its checker (trusted) |
+| `src/cafq/binquot.py` | **Compiler-aware quotient** on binaries (untrusted prototype; needs unicorn, capstone) |
+| `proofs/coq/` | Machine-checked core theorems (Coq 8.18, mathcomp 2.1) |
 | `src/cafq/circuits.py`, `kernels.py` | Test circuits; cyclic multiplication kernel; memory model of the compiled kernel |
 | `src/compiled/kernel.c` | The C kernel used in the instruction-skip study |
 | `tests/` | Exhaustive field/challenge checks, attacks, brute-force soundness, certificate tampering for both checkers |
@@ -47,11 +51,13 @@ classical and its guarantees do not survive a second fault or compilation.
 ## Reproduce
 
 ```
-pip install pytest==9.2.0 unicorn==2.1.4      # Python 3.13.18 was used
+pip install pytest==9.2.0 unicorn==2.1.4 capstone==5.0.7   # Python 3.13.18 was used
 python -m pytest                              # about 75 s
 python tools/run_structural_benchmarks.py     # A / A' / B / C comparison, about 8 min
 python tools/two_fault_study.py               # about 70 s
 python tools/compiled_kernel_study.py         # needs gcc 13.3.0, clang 18.1.3, objdump, nm
+python tools/binary_quotient_study.py         # quotient vs per-skip emulation, about 3 min
+sh proofs/coq/check.sh                        # apt-get install coq libcoq-mathcomp-algebra
 python tools/phase1_report.py; python tools/run_benchmarks.py   # Phase 1/2 tables
 ```
 

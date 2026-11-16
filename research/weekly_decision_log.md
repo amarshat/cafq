@@ -34,3 +34,19 @@
 | 23 | Compiled-kernel emulation: code segments mapped read-only after a skip caused a wild write into code and desynchronised the replay | Found by an internal consistency assertion |
 | 24 | Quadratic duplicate detection replaced by a linear one in **both** checkers | It would otherwise have inflated checker time at 22k faults; applied to the baseline too so the comparison is not skewed |
 | 25 | Decision recorded in `NOVELTY_AND_GO_NO_GO.md` | Directive §8 |
+
+## 2026-11-16 — Session 3 (response to external review of c63ccbd)
+
+| # | Decision | Reason |
+|---|---|---|
+| 26 | Reviewer's soundness defect reproduced before fixing: both trusted checkers accepted GF(4) certificates transplanted to moduli `0b100`, `0b101`, `0b110` | Confirm the report independently; the regression file itself did not reach the session |
+| 27 | Program validation placed in `checker.py` and reused by `structural_checker.py`; a failing program yields no PASS at all | The field assumption underlies every theorem; it must be checked before any certificate is read |
+| 28 | Audit found a second unchecked assumption: register names beginning with `@` would be mis-parsed as the structural checker's formal tags. No exploit was constructed; now rejected | Same class of defect as #26: an assumption about the program description that was never checked |
+| 29 | Generator side (`field.py`, `ir.py`) also refuses reducible moduli and reserved names | Defence in depth only; the trusted side does not rely on it |
+| 30 | Coq used instead of Lean/Isabelle | Lean's toolchain download host was unreachable; Coq 8.18 and mathcomp 2.1 were installable from the distribution |
+| 31 | Formalisation scoped to the propagation identity, taint criterion, reverse-pass equivalence and root-set theorem; probability, witness step and code correspondence left on paper and listed | Deliver checked statements rather than a larger unfinished development |
+| 32 | Binary quotient built around post-dominance in a dynamic def-use graph plus injection-validated realisation points; everything else reported outside coverage | Makes "maps to a certified abstract family or is outside coverage" an explicit, testable relation |
+| 33 | First all-build run produced one unsound prediction (clang, `cmovne`). Root cause: write set treated as kill set. Fixed with an explicit kill whitelist; recorded as counterexample C5 | The failure is the most informative result of the cycle and is kept on the record |
+| 34 | The first fix over-corrected (coverage fell to 23–31 %) because `pop` and multi-byte NOPs were mis-modelled; corrected, coverage 68–80 % | Recorded so the coverage figures are not read as having been tuned silently: each change was a modelling correction with a stated reason, and zero unsound predictions held throughout after #33 |
+| 35 | ARM Thumb-2, HQC-scale kernels: not attempted | Out of reach in this cycle; stated as not done |
+| 36 | Decision unchanged: PIVOT, objective narrowed to source-to-binary transport | `NOVELTY_AND_GO_NO_GO.md` §10 |

@@ -232,3 +232,23 @@ To close the gap, the following PDFs would need to be supplied: Sellers,
 Hsiao & Bearnson (1968) or any textbook chapter on the Boolean difference;
 Huang & Abraham (1984); a survey of algebraic fault analysis; VerFI;
 CINI MINIS; and any paper on derivative- or AD-based soft-error propagation.
+
+
+## 6. Addendum, 16 Nov 2026: references supplied by external review
+
+The external review of revision `c63ccbd` states the following. **None of it
+was read in this project**; it is recorded as reviewer-reported and is
+consistent with the presumption in §0.
+
+| Reviewer statement | Our status |
+|---|---|
+| The fault-propagation principle goes back at least to *Analyzing Errors with the Boolean Difference* (1968) | not accessed. Matches §0: the derivative view of fault detection is assumed known |
+| A historical NASA technical survey discusses Boolean derivatives as a systematic way of analysing fault effects | not accessed |
+| BEC appeared at CGO 2024 | our copy is the arXiv preprint 2401.05753v1 (§2.5); venue not verified by us |
+| The forward/reverse-pass algorithm alone is unlikely to qualify as a foundational invention | agreed; this was already the conclusion of `NOVELTY_AND_GO_NO_GO.md` §5 |
+
+For the compiler-aware work of this cycle (theory §12) **no prior-art search
+was carried out**: nothing on compiler-security, secure compilation,
+fault-injection-aware compilation, binary-level fault pruning beyond BEC, or
+translation validation was read. Any novelty statement about the Region
+Theorem is therefore unsupported.
