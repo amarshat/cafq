@@ -1,0 +1,247 @@
+[
+ {
+  "label": "gcc-O2",
+  "compiler": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": "-O2 -ffreestanding -fno-stack-protector -fno-pic -no-pie -nostdlib -static -fcf-protection=none -Wl,-e,kernel -Wl,--build-id=none",
+  "elf_sha256": "77af5f31c90d542c4417036804222e3d776e6e37b0a7bdf14c108ff5a5c3fb55",
+  "ir_program": "polymul_karatsuba2_memory_model",
+  "ir_sha256": "8903cce9a6286c278081002c9f2144762ace736121e6ea40b5cdee3723f8df22",
+  "ir_sites": 29,
+  "dynamic_instructions": 895,
+  "challenges": 256,
+  "state": [
+   83,
+   202,
+   29,
+   158
+  ],
+  "predicted": {
+   "outside": 182,
+   "template": 229,
+   "unobserved": 7,
+   "no-wrong-output": 430,
+   "no-effect": 47
+  },
+  "coverage": 0.7966480446927374,
+  "outside_reasons": {
+   "control or stack instruction": 73,
+   "perturbed value reaches an address/control use": 73,
+   "no validated realisation point post-dominates the fault": 36
+  },
+  "unsound_predictions": [],
+  "ground_truth_bypasses_predicted_as": {
+   "unobserved": 7
+  },
+  "covered_skips_that_corrupt_output": 139,
+  "validated_realisation_points": 23,
+  "ir_sites_realised": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   13,
+   14,
+   15,
+   17,
+   20,
+   23,
+   25
+  ],
+  "ir_sites_not_realised": [
+   9,
+   10,
+   11,
+   12,
+   16,
+   18,
+   19,
+   21,
+   22,
+   24,
+   26,
+   27,
+   28
+  ],
+  "quotient": {
+   "traced_runs": 8,
+   "candidate_points": 39,
+   "rejected_upper_bits_live": 0,
+   "rejected_no_matching_site": 16,
+   "emulated_suffix_runs": 109312,
+   "seconds": 4.2734083779998855
+  },
+  "per_fault": {
+   "emulated_suffix_runs": 229120,
+   "seconds": 8.299424797000029
+  }
+ },
+ {
+  "label": "clang-O2",
+  "compiler": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+  "flags": "-O2 -ffreestanding -fno-stack-protector -fno-pic -no-pie -nostdlib -static -fcf-protection=none -Wl,-e,kernel -Wl,--build-id=none",
+  "elf_sha256": "1f9d5b9d73f71e68cc2b8de764b6c6396de92335d3f203c33981cf650406a940",
+  "ir_program": "polymul_karatsuba2_memory_model",
+  "ir_sha256": "8903cce9a6286c278081002c9f2144762ace736121e6ea40b5cdee3723f8df22",
+  "ir_sites": 29,
+  "dynamic_instructions": 459,
+  "challenges": 256,
+  "state": [
+   83,
+   202,
+   29,
+   158
+  ],
+  "predicted": {
+   "outside": 145,
+   "unobserved": 5,
+   "template": 39,
+   "no-wrong-output": 270
+  },
+  "coverage": 0.6840958605664488,
+  "outside_reasons": {
+   "control or stack instruction": 13,
+   "perturbed value reaches an address/control use": 4,
+   "no validated realisation point post-dominates the fault": 123,
+   "stale content left by the skip depends on the challenge": 5
+  },
+  "unsound_predictions": [],
+  "ground_truth_bypasses_predicted_as": {
+   "unobserved": 5,
+   "outside": 2
+  },
+  "covered_skips_that_corrupt_output": 30,
+  "validated_realisation_points": 16,
+  "ir_sites_realised": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   13,
+   14,
+   15,
+   25
+  ],
+  "ir_sites_not_realised": [
+   9,
+   10,
+   11,
+   12,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   26,
+   27,
+   28
+  ],
+  "quotient": {
+   "traced_runs": 8,
+   "candidate_points": 71,
+   "rejected_upper_bits_live": 8,
+   "rejected_no_matching_site": 47,
+   "emulated_suffix_runs": 190208,
+   "seconds": 54.266043456000034
+  },
+  "per_fault": {
+   "emulated_suffix_runs": 117504,
+   "seconds": 58.845456484000124
+  }
+ },
+ {
+  "label": "gcc-O0",
+  "compiler": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": "-O0 -ffreestanding -fno-stack-protector -fno-pic -no-pie -nostdlib -static -fcf-protection=none -Wl,-e,kernel -Wl,--build-id=none",
+  "elf_sha256": "e35c8a5cfd8682c8e1bbc2f84b6c32894d114e5803eb3c22ca371d6cb07ce127",
+  "ir_program": "polymul_karatsuba2_memory_model",
+  "ir_sha256": "8903cce9a6286c278081002c9f2144762ace736121e6ea40b5cdee3723f8df22",
+  "ir_sites": 29,
+  "dynamic_instructions": 1372,
+  "challenges": 256,
+  "state": [
+   83,
+   202,
+   29,
+   158
+  ],
+  "predicted": {
+   "outside": 289,
+   "unobserved": 14,
+   "no-wrong-output": 611,
+   "template": 376,
+   "no-effect": 82
+  },
+  "coverage": 0.7893586005830904,
+  "outside_reasons": {
+   "control or stack instruction": 117,
+   "perturbed value reaches an address/control use": 171,
+   "stale content left by the skip depends on the challenge": 1
+  },
+  "unsound_predictions": [],
+  "ground_truth_bypasses_predicted_as": {
+   "unobserved": 14,
+   "outside": 5
+  },
+  "covered_skips_that_corrupt_output": 267,
+  "validated_realisation_points": 65,
+  "ir_sites_realised": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   19,
+   20,
+   22,
+   23,
+   25
+  ],
+  "ir_sites_not_realised": [
+   10,
+   11,
+   18,
+   21,
+   24,
+   26,
+   27,
+   28
+  ],
+  "quotient": {
+   "traced_runs": 8,
+   "candidate_points": 100,
+   "rejected_upper_bits_live": 0,
+   "rejected_no_matching_site": 35,
+   "emulated_suffix_runs": 272640,
+   "seconds": 12.201752394000096
+  },
+  "per_fault": {
+   "emulated_suffix_runs": 351232,
+   "seconds": 15.872887697000124
+  }
+ }
+]
