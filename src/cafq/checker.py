@@ -21,6 +21,12 @@ g = faulted discrepancy, both as functions of state x and challenge r):
 
 It also checks the manifest (one certificate per in-scope fault, none
 missing, none extra) and that every quotient class is sound at its level.
+
+Before any of that it validates the program itself: the modulus must be an
+IRREDUCIBLE polynomial of the stated degree (otherwise the arithmetic is not
+a field and no root bound holds), the challenge must be a read-only register
+distinct from the inputs, and every instruction must be well formed. A
+program that fails validation yields no PASS at all.
 """
 from __future__ import annotations
 
@@ -29,6 +35,89 @@ import json
 import time
 
 KINDS = ("skip", "zero", "bitflip")
+
+
+# ------------------------------------------------- program validation ------
+# Every theorem behind a PASS assumes arithmetic in a FIELD and a challenge
+# that is a read-only register distinct from the state. None of that may be
+# taken on trust from the program description, so it is checked here, before
+# any certificate is looked at.
+MAX_M = 16          # exact root sets and bypass replay enumerate all 2^m challenges
+
+
+def _irreducible(f: int, m: int) -> bool:
+    """Is the degree-m polynomial f over GF(2) irreducible? By trial division
+    by every polynomial of degree 1..m//2 (exact; fine for m <= MAX_M)."""
+    if m < 1 or f >> m != 1:
+        return False
+    for d in range(2, 1 << (m // 2 + 1)):            # all polynomials of degree >= 1
+        r, dd = f, d.bit_length()
+        while r.bit_length() >= dd:
+            r ^= d << (r.bit_length() - dd)
+        if r == 0:
+            return False
+    return True
+
+
+def _is_name(x) -> bool:
+    # "@" is reserved for the structural checker's formal tags
+    return isinstance(x, str) and x != "" and not x.startswith("@")
+
+
+def _validate_program(program) -> str | None:
+    """Return None if the program is well formed, else the reason."""
+    try:
+        if not isinstance(program, dict):
+            return "not an object"
+        if program.get("ir") != "toy-ir-v1":
+            return "unsupported IR"
+        m, modulus = program["m"], program["modulus"]
+        if type(m) is not int or not 1 <= m <= MAX_M:
+            return f"field degree m must be an integer in 1..{MAX_M}"
+        if type(modulus) is not int or modulus >> m != 1:
+            return "modulus is not a polynomial of degree m"
+        if not _irreducible(modulus, m):
+            return ("modulus is not irreducible: arithmetic would be a ring with zero "
+                    "divisors, where root-count bounds do not hold")
+        inputs, challenge = program["inputs"], program["challenge"]
+        if not isinstance(inputs, list) or not all(_is_name(v) for v in inputs):
+            return "inputs must be a list of valid register names"
+        if len(set(inputs)) != len(inputs):
+            return "duplicate input names"
+        if not _is_name(challenge) or challenge in inputs:
+            return "challenge must be a valid register name distinct from every input"
+        read_only = set(inputs) | {challenge}
+        if not isinstance(program["instrs"], list):
+            return "instrs must be a list"
+        for i, ins in enumerate(program["instrs"]):
+            if not isinstance(ins, list) or len(ins) != 5:
+                return f"instruction {i}: expected [op, dst, a, b, region]"
+            op, dst, a, b, region = ins
+            if not _is_name(dst) or dst in read_only:
+                return f"instruction {i}: destination is not a writable register"
+            if not isinstance(region, str):
+                return f"instruction {i}: region must be a string"
+            if op == "const":
+                if type(a) is not int or not 0 <= a < (1 << m) or b is not None:
+                    return f"instruction {i}: bad immediate"
+            elif op == "mov":
+                if not _is_name(a) or b is not None:
+                    return f"instruction {i}: mov takes one register operand"
+            elif op in ("add", "mul"):
+                if not _is_name(a) or not _is_name(b):
+                    return f"instruction {i}: {op} takes two register operands"
+            else:
+                return f"instruction {i}: unknown op"
+        for key in ("outputs", "inconsistency"):
+            if not isinstance(program[key], list) or not all(_is_name(v) for v in program[key]):
+                return f"{key} must be a list of valid register names"
+        if not _is_name(program["disc"]):
+            return "disc must be a valid register name"
+        if not isinstance(program.get("name"), str):
+            return "name must be a string"
+    except (KeyError, TypeError) as e:
+        return f"malformed ({type(e).__name__}: {e})"
+    return None
 
 
 # ---------------------------------------------------------------- field ----
@@ -194,6 +283,11 @@ def _need(cond: bool, msg: str):
 # ------------------------------------------------------------ checking -----
 def check(program: dict, certificates: list[dict], kinds=KINDS) -> dict:
     t0 = time.perf_counter()
+    reason = _validate_program(program)
+    if reason is not None:
+        return {"ok": False, "results": {}, "errors": [f"program: {reason}"],
+                "counts": {"benign": 0, "covered": 0, "bypass": 0, "unknown": 0},
+                "in_scope_faults": 0, "seconds": time.perf_counter() - t0}
     F = _Field(program["m"], program["modulus"])
     R, q = program["challenge"], 1 << program["m"]
     sha = hashlib.sha256(json.dumps(program, sort_keys=True,

@@ -5,10 +5,26 @@ from __future__ import annotations
 MODULI = {2: 0b111, 3: 0b1011, 4: 0b10011, 8: 0x11B}
 
 
+def _irreducible(f: int, m: int) -> bool:
+    """Trial division by every polynomial of degree 1..m//2 over GF(2)."""
+    if m < 1 or f >> m != 1:
+        return False
+    for d in range(2, 1 << (m // 2 + 1)):
+        r, dd = f, d.bit_length()
+        while r.bit_length() >= dd:
+            r ^= d << (r.bit_length() - dd)
+        if r == 0:
+            return False
+    return True
+
+
 class GF:
     def __init__(self, m: int, modulus: int | None = None):
         self.m = m
         self.modulus = MODULI[m] if modulus is None else modulus
+        if not _irreducible(self.modulus, m):
+            raise ValueError(f"modulus {self.modulus:#b} is not an irreducible polynomial "
+                             f"of degree {m}: GF(2)[x]/(modulus) would not be a field")
         self.q = 1 << m
         self._mul = [[self._slow_mul(a, b) for b in range(self.q)] for a in range(self.q)]
         self._inv = [0] * self.q

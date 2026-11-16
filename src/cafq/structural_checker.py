@@ -29,7 +29,7 @@ import time
 
 from cafq.checker import (KINDS, _Field, _Reject, _check_bypass, _check_covered,
                           _fault_space, _load, _need, _p_add, _p_canon, _p_mul,
-                          _p_parse, _p_vars, _site_id)
+                          _p_parse, _p_vars, _site_id, _validate_program)
 
 FORMAT = "cafq-structural-0.2"
 _TAG_D = "@d"
@@ -129,9 +129,15 @@ def check(program: dict, document: dict, kinds=KINDS) -> dict:
     class_of: dict[str, str] = {}
     counts = {"benign": 0, "covered": 0, "bypass": 0, "unknown": 0}
 
-    if document.get("format") != FORMAT:
+    if not isinstance(document, dict) or document.get("format") != FORMAT:
         return {"ok": False, "errors": ["unknown certificate format"], "results": {},
                 "counts": counts, "seconds": 0.0, "stats": stats, "classes": {}}
+
+    reason = _validate_program(program)
+    if reason is not None:
+        return {"ok": False, "errors": [f"program: {reason}"], "results": {},
+                "counts": counts, "seconds": time.perf_counter() - t0, "stats": stats,
+                "classes": {}, "in_scope_faults": 0}
 
     F = _Field(program["m"], program["modulus"])
     R, q = program["challenge"], 1 << program["m"]

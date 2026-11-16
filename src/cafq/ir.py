@@ -70,7 +70,15 @@ class Program:
     inconsistency: list[str] = field(default_factory=list)
 
     def __post_init__(self):
+        get_field(self.m, self.modulus)          # raises unless the modulus is irreducible
         ro = set(self.inputs) | {self.challenge}
+        names = self.inputs + [self.challenge, self.disc] + self.outputs + self.inconsistency \
+            + [ins.dst for ins in self.instrs]
+        for nm in names:
+            if not isinstance(nm, str) or not nm or nm.startswith("@"):
+                raise ValueError(f"invalid register name {nm!r} ('@' is reserved)")
+        if self.challenge in self.inputs or len(set(self.inputs)) != len(self.inputs):
+            raise ValueError("inputs must be distinct and must not contain the challenge")
         for i, ins in enumerate(self.instrs):
             if ins.op not in OPS:
                 raise ValueError(f"instr {i}: unknown op {ins.op}")
